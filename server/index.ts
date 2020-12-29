@@ -66,14 +66,14 @@ app.prepare().then(() => {
 		}
 		type Query {
 			hello: String,
-			portfolio: Portfolio,
+			portfolio(id: ID): Portfolio,
 			portfolios: [Portfolio],
 		}
 	`);
 
 	const rootValue = {
 		hello: () => 'Hello world!',
-		portfolio: () => fakeData.portfolio()[0],
+		portfolio: ({id}) => fakeData.portfolio().find(p => p._id === id),
 		portfolios: () => fakeData.portfolio()
 	};
 

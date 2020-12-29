@@ -2,6 +2,7 @@ import Head from 'next/head'
 import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
 import axios from 'axios';
 import {useState} from 'react';
+import Link from 'next/link';
 
 const fetchPortfolios = async () => {
 	const query = `{
@@ -41,6 +42,9 @@ export default function Portfolios({portfolios}) {
 								<Typography color="textSecondary" gutterBottom>
 									{portfolio.company}
 								</Typography>
+								<Link href={`/portfolios/${portfolio._id}`}>
+									<a>show</a>
+								</Link>
 							</CardContent>
 						</Card>
 					))}
