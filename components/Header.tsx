@@ -22,7 +22,11 @@ const Header = () => {
 							<ButtonGroup variant="text" color="primary" aria-label="text primary button group">
 								{renderLink('/', 'Home')}
 								{renderLink('/blog', 'Blog')}
+								{renderLink('/portfolios', 'Portfolios')}
 								{renderLink('/about', 'About')}
+							</ButtonGroup>
+							<ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+								{renderLink('/graphql', 'GraphQL')}
 							</ButtonGroup>
 						</Toolbar>
 					</Container>
