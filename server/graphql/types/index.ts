@@ -7,7 +7,8 @@ const rootQuery = `
 
 const rootMutation = `
 	type Mutation { 
-		createPortfolio(portfolioInput: PortfolioInput): Portfolio
+		createPortfolio(input: PortfolioInput): Portfolio,
+		updatePortfolio(id: ID, input: PortfolioInput): Portfolio,
 	}
 `;
 

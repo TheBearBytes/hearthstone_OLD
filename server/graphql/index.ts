@@ -1,18 +1,21 @@
-import {graphqlHTTP} from 'express-graphql';
-import {buildSchema} from 'graphql';
+import {ApolloServer, gql} from 'apollo-server-express';
 import type from './types';
-import portfolioResolvers from './resolvers';
+import {portfolioMutations, portfolioQueries} from './resolvers';
 
-const schema = buildSchema(type);
+const typeDefs = gql`${type}`;
 
-const rootValue = {
-	...portfolioResolvers
+const resolvers = {
+	Query: {
+		...portfolioQueries
+	},
+	Mutation: {
+		...portfolioMutations
+	},
 };
 
-const graphqlRoute = graphqlHTTP({
-	schema,
-	rootValue,
-	graphiql: true
-});
+const apolloServer = new ApolloServer({
+	typeDefs,
+	resolvers,
+})
 
-export default graphqlRoute;
+export default apolloServer;
