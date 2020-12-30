@@ -1,9 +1,9 @@
 import {graphqlHTTP} from 'express-graphql';
 import {buildSchema} from 'graphql';
-import {portfolioType, rootType} from './types';
+import type from './types';
 import portfolioResolvers from './resolvers';
 
-const schema = buildSchema(`${rootType}${portfolioType}`);
+const schema = buildSchema(type);
 
 const rootValue = {
 	...portfolioResolvers
