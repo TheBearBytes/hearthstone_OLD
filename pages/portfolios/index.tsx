@@ -5,7 +5,7 @@ import {useState} from 'react';
 import Link from 'next/link';
 
 const fetchPortfolios = async () => {
-	const query = `{
+	const query = `query {
 		portfolios {
 			_id, 
 			title, 
@@ -16,12 +16,64 @@ const fetchPortfolios = async () => {
 	return data.data.portfolios;
 }
 
+const createPortfolio = async () => {
+	const query = `mutation {
+			createPortfolio(input: {
+			title: "New title test",
+			company: "121221",
+			companyWebsite: "121221",
+			location: "121221",
+			jobTitle: "121221",
+			description: "121221",
+			startDate: "121221",
+			endDate: "121221",
+		}) {
+			  _id,
+			title,
+		}
+	}`;
+	const {data} = await axios.post('http://localhost:3000/graphql', {query});
+	return data.data.createPortfolio;
+}
+
+const updatePortfolio = async (id: string) => {
+	const query = `mutation {
+			updatePortfolio(
+				id: "${id}",
+				input: {
+					title: "EDIT New title test",
+					company: "EDIT 121221",
+					companyWebsite: "EDIT 121221",
+					location: "EDIT 121221",
+					jobTitle: "EDIT 121221",
+					description: "EDIT 121221",
+					startDate: "EDIT 121221",
+					endDate: "EDIT 121221",
+			}) {
+				  _id,
+				title,
+			}
+	}`;
+	const {data} = await axios.post('http://localhost:3000/graphql', {query});
+	return data.data.updatePortfolio;
+}
+
 export default function Portfolios({portfolios}) {
 	const [portfoliosState, setPortfoliosState] = useState(portfolios);
 
 	const handleFetchPortfolios = async () => {
 		const portfolios = await fetchPortfolios();
 		setPortfoliosState(portfolios);
+	}
+
+	const handleCreatePortfolio = async () => {
+		await createPortfolio();
+		await handleFetchPortfolios();
+	}
+
+	const handleUpdatePortfolio = async (id: string) => {
+		await updatePortfolio(id);
+		await handleFetchPortfolios();
 	}
 
 	return (
@@ -31,22 +83,26 @@ export default function Portfolios({portfolios}) {
 			</Head>
 			<section>
 				<h2>Portfolios</h2>
-				<Button onClick={handleFetchPortfolios}>Fetch portfolios</Button>
-				<Box display="flex" justifyContent="space-between">
+				<Button variant="contained" color="primary" onClick={handleFetchPortfolios}>Fetch portfolios</Button>
+				<Button variant="contained" color="primary" onClick={handleCreatePortfolio}>Create portfolio</Button>
+				<Box display="flex" flexWrap="wrap">
 					{portfoliosState.map(portfolio => (
-						<Card key={portfolio._id}>
-							<CardContent>
-								<Typography variant="h5" component="h2">
-									{portfolio.title}
-								</Typography>
-								<Typography color="textSecondary" gutterBottom>
-									{portfolio.company}
-								</Typography>
-								<Link href={`/portfolios/${portfolio._id}`}>
-									<a>show</a>
-								</Link>
-							</CardContent>
-						</Card>
+						<Box key={portfolio._id} m={1}>
+							<Card>
+								<CardContent>
+									<Typography variant="h5" component="h2">
+										{portfolio.title}
+									</Typography>
+									<Typography color="textSecondary" gutterBottom>
+										{portfolio.company}
+									</Typography>
+									<Link href={`/portfolios/${portfolio._id}`}>
+										<Button variant="outlined" color="primary">show</Button>
+									</Link>
+									<Button variant="outlined" color="primary" onClick={() => handleUpdatePortfolio(portfolio._id)}>edit</Button>
+								</CardContent>
+							</Card>
+						</Box>
 					))}
 				</Box>
 			</section>

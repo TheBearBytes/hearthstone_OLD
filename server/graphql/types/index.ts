@@ -1,3 +1,5 @@
+import portfolioType from './portfolio';
+
 const rootQuery = `
 	type Query { 
 	 	portfolio(id: ID): Portfolio,
@@ -9,31 +11,6 @@ const rootMutation = `
 	type Mutation { 
 		createPortfolio(input: PortfolioInput): Portfolio,
 		updatePortfolio(id: ID, input: PortfolioInput): Portfolio,
-	}
-`;
-
-const portfolioType = `
-	type Portfolio {
-		_id: ID,
-		title: String,
-		company: String,
-		companyWebsite: String,
-		location: String,
-		jobTitle: String,
-		description: String,
-		startDate: String,
-		endDate: String,
-	}
-	
-	input PortfolioInput {
-		title: String,
-		company: String,
-		companyWebsite: String,
-		location: String,
-		jobTitle: String,
-		description: String,
-		startDate: String,
-		endDate: String,
 	}
 `;
 
