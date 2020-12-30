@@ -3,6 +3,7 @@ import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
 import axios from 'axios';
 import {useState} from 'react';
 import Link from 'next/link';
+import ButtonError from '../../components/shared/ButtonError';
 
 const fetchPortfolios = async () => {
 	const query = `query {
@@ -58,6 +59,14 @@ const updatePortfolio = async (id: string) => {
 	return data.data.updatePortfolio;
 }
 
+const deletePortfolio = async (id: string) => {
+	const query = `mutation {
+			deletePortfolio(id: "${id}")
+	}`;
+	const {data} = await axios.post('http://localhost:3000/graphql', {query});
+	return data.data.deletePortfolio;
+}
+
 export default function Portfolios({portfolios}) {
 	const [portfoliosState, setPortfoliosState] = useState(portfolios);
 
@@ -73,6 +82,11 @@ export default function Portfolios({portfolios}) {
 
 	const handleUpdatePortfolio = async (id: string) => {
 		await updatePortfolio(id);
+		await handleFetchPortfolios();
+	}
+
+	const handleDeletePortfolio = async (id: string) => {
+		await deletePortfolio(id);
 		await handleFetchPortfolios();
 	}
 
@@ -97,9 +111,10 @@ export default function Portfolios({portfolios}) {
 										{portfolio.company}
 									</Typography>
 									<Link href={`/portfolios/${portfolio._id}`}>
-										<Button variant="outlined" color="primary">show</Button>
+										<Button color="primary">show</Button>
 									</Link>
-									<Button variant="outlined" color="primary" onClick={() => handleUpdatePortfolio(portfolio._id)}>edit</Button>
+									<Button color="primary" onClick={() => handleUpdatePortfolio(portfolio._id)}>edit</Button>
+									<ButtonError onClick={() => handleDeletePortfolio(portfolio._id)}>delete</ButtonError>
 								</CardContent>
 							</Card>
 						</Box>

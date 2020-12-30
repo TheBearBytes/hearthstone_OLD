@@ -25,6 +25,12 @@ const portfolioMutations = {
 
 		fakeData.portfolio[idx] = portfolio;
 		return portfolio;
+	},
+	deletePortfolio: (root, {id}) => {
+		const idx = fakeData.portfolio.findIndex(p => p._id === id);
+		fakeData.portfolio.splice(idx, 1);
+
+		return id;
 	}
 }
 
