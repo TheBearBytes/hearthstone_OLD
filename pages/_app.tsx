@@ -3,8 +3,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import React, {useEffect} from "react";
 import theme from "../theme/theme";
 import {ThemeProvider} from "@material-ui/styles";
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+
+const client = new ApolloClient({
+	uri: 'http://localhost:3000/graphql',
+	cache: new InMemoryCache()
+});
 
 export default function App({Component, pageProps}) {
+
 	useEffect(() => {
 		const jssStyles = document.querySelector('#jss-server-side');
 		if (jssStyles) {
@@ -14,12 +21,14 @@ export default function App({Component, pageProps}) {
 
 	return (
 		<>
-			<ThemeProvider theme={theme}>
-				<CssBaseline/>
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</ThemeProvider>
+			<ApolloProvider client={client}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline/>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</ThemeProvider>
+			</ApolloProvider>
 			<style jsx global>{`
                 html,
                 body {

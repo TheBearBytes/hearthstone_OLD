@@ -1,41 +1,11 @@
 import Head from 'next/head'
 import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
 import axios from 'axios';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Link from 'next/link';
 import ButtonError from '../../components/shared/ButtonError';
-
-const fetchPortfolios = async () => {
-	const query = `query {
-		portfolios {
-			_id, 
-			title, 
-			company
-		}
-	}`;
-	const {data} = await axios.post('http://localhost:3000/graphql', {query});
-	return data.data.portfolios;
-}
-
-const createPortfolio = async () => {
-	const query = `mutation {
-			createPortfolio(input: {
-			title: "New title test",
-			company: "121221",
-			companyWebsite: "121221",
-			location: "121221",
-			jobTitle: "121221",
-			description: "121221",
-			startDate: "121221",
-			endDate: "121221",
-		}) {
-			  _id,
-			title,
-		}
-	}`;
-	const {data} = await axios.post('http://localhost:3000/graphql', {query});
-	return data.data.createPortfolio;
-}
+import {useLazyQuery, useMutation} from '@apollo/client';
+import {GET_PORTFOLIOS, CREATE_PORTFOLIO} from '../../apollo/queries';
 
 const updatePortfolio = async (id: string) => {
 	const query = `mutation {
@@ -67,27 +37,45 @@ const deletePortfolio = async (id: string) => {
 	return data.data.deletePortfolio;
 }
 
-export default function Portfolios({portfolios}) {
-	const [portfoliosState, setPortfoliosState] = useState(portfolios);
+export default function Portfolios() {
+	const [portfolios, setPortfolios] = useState([]);
+	const [getPortfolios, {loading, data}] = useLazyQuery(GET_PORTFOLIOS);
 
-	const handleFetchPortfolios = async () => {
-		const portfolios = await fetchPortfolios();
-		setPortfoliosState(portfolios);
+	const onPortfolioCreated = (cache, {data: {createPortfolio}}) => {
+		const {portfolios: cachedPortfolios} = cache.readQuery({query: GET_PORTFOLIOS});
+		cache.writeQuery({
+			query: GET_PORTFOLIOS,
+			data: {portfolios: [...cachedPortfolios, createPortfolio]},
+		});
+	}
+	const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {update: onPortfolioCreated});
+
+	useEffect(() => {
+		getPortfolios();
+	}, []);
+
+	if (data && data.portfolios.length > 0 && (portfolios.length === 0 || portfolios.length !== data.portfolios.length)) {
+		setPortfolios(data.portfolios);
+	}
+
+	if (loading) { return 'Loading...' };
+
+	const handleFetchPortfolios = () => {
+		console.log('handleFetchPortfolios');
+		setPortfolios([]);
+		getPortfolios();
 	}
 
 	const handleCreatePortfolio = async () => {
 		await createPortfolio();
-		await handleFetchPortfolios();
 	}
 
 	const handleUpdatePortfolio = async (id: string) => {
 		await updatePortfolio(id);
-		await handleFetchPortfolios();
 	}
 
 	const handleDeletePortfolio = async (id: string) => {
 		await deletePortfolio(id);
-		await handleFetchPortfolios();
 	}
 
 	return (
@@ -100,7 +88,7 @@ export default function Portfolios({portfolios}) {
 				<Button variant="contained" color="primary" onClick={handleFetchPortfolios}>Fetch portfolios</Button>
 				<Button variant="contained" color="primary" onClick={handleCreatePortfolio}>Create portfolio</Button>
 				<Box display="flex" flexWrap="wrap">
-					{portfoliosState.map(portfolio => (
+					{portfolios.map(portfolio => (
 						<Box key={portfolio._id} m={1}>
 							<Card>
 								<CardContent>
@@ -123,13 +111,4 @@ export default function Portfolios({portfolios}) {
 			</section>
 		</>
 	)
-}
-
-export async function getStaticProps() {
-	const portfolios = await fetchPortfolios()
-	return {
-		props: {
-			portfolios
-		}
-	}
 }

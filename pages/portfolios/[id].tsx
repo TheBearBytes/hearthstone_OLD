@@ -1,30 +1,19 @@
 import Head from 'next/head'
-import axios from 'axios';
+import {useLazyQuery} from '@apollo/client';
+import {GET_PORTFOLIO} from '../../apollo/queries';
+import {useEffect, useState} from 'react';
 
-const fetchPortfoliosIds = async () => {
-	const query = `{
-		portfolios {
-			_id, 
-		}
-	}`;
-	const {data} = await axios.post('http://localhost:3000/graphql', {query});
-	return data.data.portfolios.map(p => {
-		return {params: {id: p._id}}
-	});
-}
+export default function Portfolio({id}) {
+	const [getPortfolio, {loading, data}] = useLazyQuery(GET_PORTFOLIO, {variables: { id }});
+	const [portfolio, setPortfolio] = useState(null);
 
-const fetchPortfolio = async (id: string) => {
-	const query = `{
-		portfolio(id: "${id}") {
-			_id,
-			title,
-		}
-	}`;
-	const {data} = await axios.post('http://localhost:3000/graphql', {query});
-	return data.data.portfolio;
-}
+	useEffect(() => {
+		getPortfolio({variables: {id}})
+	}, [])
 
-export default function Portfolio({portfolio}) {
+	if (data && !portfolio) { setPortfolio(data.portfolio) }
+	if (loading || !portfolio) { return 'Loading...' };
+
 	return (
 		<>
 			<Head>
@@ -37,20 +26,10 @@ export default function Portfolio({portfolio}) {
 	)
 }
 
-export async function getStaticPaths() {
-	const paths = await fetchPortfoliosIds()
-	return {
-		paths,
-		fallback: false
-	}
-}
-
-// or getServerSideProps instead of getStaticProps and getStaticPaths [ssr vs static pages]
-export async function getStaticProps({params}) {
-	const portfolio = await fetchPortfolio(params.id)
+export async function getServerSideProps({params}) {
 	return {
 		props: {
-			portfolio
+			id: params.id
 		}
 	}
 }
