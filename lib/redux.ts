@@ -6,7 +6,6 @@ let store
 
 const initialState = {
   lastUpdate: 0,
-  light: false,
   count: 0,
 }
 
@@ -16,7 +15,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         lastUpdate: action.lastUpdate,
-        light: !!action.light,
       }
     case 'INCREMENT':
       return {
@@ -46,7 +44,7 @@ function initStore(preloadedState = initialState) {
   )
 }
 
-export const initializeStore = (preloadedState) => {
+export const initializeStore = (preloadedState?) => {
   let _store = store ?? initStore(preloadedState)
 
   // After navigating to a page with an initial Redux state, merge that state

@@ -1,6 +1,25 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
+import useInterval from '../lib/useInterval';
+import {initializeStore} from '../lib/redux';
 
 export default function Home() {
+  const dispatch = useDispatch();
+
+  useInterval(() => {
+    dispatch({
+      type: 'TICK',
+      light: true,
+      lastUpdate: Date.now(),
+    })
+  }, 1000)
+
+  const {lastUpdate} = useSelector(
+      (state) => ({
+        lastUpdate: state.lastUpdate,
+      })
+  );
+
   return (
     <div className="container">
       <Head>
@@ -12,6 +31,11 @@ export default function Home() {
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <div>
+          <h2>Redux clock example</h2>
+          <div className="clock">{new Date(lastUpdate).toJSON().slice(11, 19)}</div>
+        </div>
 
         <p className="description">
           Get started by editing <code>pages/index.js</code>
@@ -48,7 +72,15 @@ export default function Home() {
         </div>
       </main>
 
-
+      <style jsx>{`
+        .clock {
+          padding: 15px;
+          display: inline-block;
+          color: #82fa58;
+          font: 50px menlo, monaco, monospace;
+          background-color: #000;
+        }
+      `}</style>
       <style jsx>{`
         .container {
           min-height: 100vh;
@@ -181,4 +213,21 @@ export default function Home() {
       `}</style>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const reduxStore = initializeStore();
+  const { dispatch } = reduxStore
+
+  dispatch({
+    type: 'TICK',
+    lastUpdate: Date.now(),
+  })
+
+  return {
+    props: {
+      initialReduxState: reduxStore.getState(),
+    },
+    revalidate: 1,
+  }
 }
