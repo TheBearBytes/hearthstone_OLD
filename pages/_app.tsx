@@ -3,14 +3,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import React, {useEffect} from "react";
 import theme from "../theme/theme";
 import {ThemeProvider} from "@material-ui/styles";
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import {ApolloProvider} from '@apollo/client';
+import {Provider} from 'react-redux';
+import {useApollo} from '../lib/apollo';
+import {useStore} from '../lib/redux';
 
-const client = new ApolloClient({
-	uri: 'http://localhost:3000/graphql',
-	cache: new InMemoryCache()
-});
 
 export default function App({Component, pageProps}) {
+	const store = useStore(pageProps.initialReduxState)
+	const client = useApollo(pageProps.initialApolloState)
 
 	useEffect(() => {
 		const jssStyles = document.querySelector('#jss-server-side');
@@ -21,14 +22,16 @@ export default function App({Component, pageProps}) {
 
 	return (
 		<>
-			<ApolloProvider client={client}>
-				<ThemeProvider theme={theme}>
-					<CssBaseline/>
-					<Layout>
-						<Component {...pageProps} />
-					</Layout>
-				</ThemeProvider>
-			</ApolloProvider>
+			<Provider store={store}>
+				<ApolloProvider client={client}>
+					<ThemeProvider theme={theme}>
+						<CssBaseline/>
+						<Layout>
+							<Component {...pageProps} />
+						</Layout>
+					</ThemeProvider>
+				</ApolloProvider>
+			</Provider>
 			<style jsx global>{`
                 html,
                 body {

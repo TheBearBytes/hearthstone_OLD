@@ -4,8 +4,9 @@ import axios from 'axios';
 import {useEffect, useState} from 'react';
 import Link from 'next/link';
 import ButtonError from '../../components/shared/ButtonError';
-import {useLazyQuery, useMutation} from '@apollo/client';
+import {NetworkStatus, useMutation, useQuery} from '@apollo/client';
 import {GET_PORTFOLIOS, CREATE_PORTFOLIO} from '../../apollo/queries';
+import {initializeApollo} from '../../lib/apollo';
 
 const updatePortfolio = async (id: string) => {
 	const query = `mutation {
@@ -39,7 +40,19 @@ const deletePortfolio = async (id: string) => {
 
 export default function Portfolios() {
 	const [portfolios, setPortfolios] = useState([]);
-	const [getPortfolios, {loading, data}] = useLazyQuery(GET_PORTFOLIOS);
+	const { data, networkStatus } = useQuery(
+		GET_PORTFOLIOS,
+		{
+			// Setting this value to true will make the component rerender when
+			// the "networkStatus" changes, so we are able to know if it is fetching
+			// more data
+			notifyOnNetworkStatusChange: true,
+		}
+	);
+
+	useEffect(() => {
+		console.log('networkStatus', networkStatus, NetworkStatus[networkStatus]);
+	}, [networkStatus]);
 
 	const onPortfolioCreated = (cache, {data: {createPortfolio}}) => {
 		const {portfolios: cachedPortfolios} = cache.readQuery({query: GET_PORTFOLIOS});
@@ -50,20 +63,13 @@ export default function Portfolios() {
 	}
 	const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {update: onPortfolioCreated});
 
-	useEffect(() => {
-		getPortfolios();
-	}, []);
-
 	if (data && data.portfolios.length > 0 && (portfolios.length === 0 || portfolios.length !== data.portfolios.length)) {
 		setPortfolios(data.portfolios);
 	}
 
-	if (loading) { return 'Loading...' };
-
 	const handleFetchPortfolios = () => {
 		console.log('handleFetchPortfolios');
 		setPortfolios([]);
-		getPortfolios();
 	}
 
 	const handleCreatePortfolio = async () => {
@@ -111,4 +117,19 @@ export default function Portfolios() {
 			</section>
 		</>
 	)
+}
+
+export async function getStaticProps() {
+	const apolloClient = initializeApollo()
+
+	await apolloClient.query({
+		query: GET_PORTFOLIOS,
+	})
+
+	return {
+		props: {
+			initialApolloState: apolloClient.cache.extract(),
+		},
+		revalidate: 1,
+	}
 }
