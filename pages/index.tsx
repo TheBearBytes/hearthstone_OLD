@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
-import useInterval from '../lib/useInterval';
-import {initializeStore} from '../lib/redux';
+import useInterval from '../client/lib/useInterval';
+import {initializeStore} from '../client/lib/redux';
 
 export default function Home() {
   const dispatch = useDispatch();

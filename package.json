@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon --watch server server/index.ts",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production ts-node server/index.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
