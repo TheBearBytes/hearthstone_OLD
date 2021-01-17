@@ -1,18 +1,12 @@
 import Head from 'next/head'
-import {useLazyQuery} from '@apollo/client';
-import {useEffect, useState} from 'react';
-import {GET_PORTFOLIO} from '../../apollo/queries';
+import {useQuery} from '@apollo/client';
+import {GET_PORTFOLIO, GET_PORTFOLIOS} from '../../apollo/queries';
+import {initializeApollo} from '../../lib/apollo';
 
 export default function Portfolio({id}) {
-	const [getPortfolio, {loading, data}] = useLazyQuery(GET_PORTFOLIO, {variables: { id }});
-	const [portfolio, setPortfolio] = useState(null);
+	const {data} = useQuery(GET_PORTFOLIO, {variables: {id}});
 
-	useEffect(() => {
-		getPortfolio({variables: {id}})
-	}, [])
-
-	if (data && !portfolio) { setPortfolio(data.portfolio) }
-	if (loading || !portfolio) { return 'Loading...' };
+	const portfolio = data && data.portfolio || {};
 
 	return (
 		<>
@@ -26,10 +20,34 @@ export default function Portfolio({id}) {
 	)
 }
 
-export async function getServerSideProps({params}) {
+export async function getStaticProps({params: {id}}) {
+	const apolloClient = initializeApollo()
+
+	await apolloClient.query({
+		query: GET_PORTFOLIO,
+		variables: {id}
+	})
+
 	return {
 		props: {
-			id: params.id
-		}
+			initialApolloState: apolloClient.cache.extract(),
+			id
+		},
+		revalidate: 1,
 	}
+}
+
+export async function getStaticPaths() {
+	const apolloClient = initializeApollo()
+
+	const {data: {portfolios}} = await apolloClient.query({
+		query: GET_PORTFOLIOS,
+	})
+
+	return {
+		paths: portfolios.map(p => ({
+			params: {id: p._id},
+		})),
+		fallback: false, // redirect to 404 when id not found
+	};
 }
