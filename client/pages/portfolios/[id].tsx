@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import {useLazyQuery} from '@apollo/client';
-import {GET_PORTFOLIO} from '../../apollo/queries';
 import {useEffect, useState} from 'react';
+import {GET_PORTFOLIO} from '../../apollo/queries';
 
 export default function Portfolio({id}) {
 	const [getPortfolio, {loading, data}] = useLazyQuery(GET_PORTFOLIO, {variables: { id }});

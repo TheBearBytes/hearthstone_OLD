@@ -4,9 +4,9 @@ import {useEffect, useState} from 'react';
 import Link from 'next/link';
 import ButtonError from '../../components/shared/ButtonError';
 import {NetworkStatus} from '@apollo/client';
-import {GET_PORTFOLIOS} from '../../apollo/queries';
 import {initializeApollo} from '../../lib/apollo';
 import {useCreatePortfolio, useDeletePortfolio, useGetPortfolios, useUpdatePortfolio} from '../../apollo/actions';
+import {GET_PORTFOLIOS} from '../../apollo/queries';
 
 export default function Portfolios() {
 	const {data, networkStatus} = useGetPortfolios();
