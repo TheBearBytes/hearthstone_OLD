@@ -2,11 +2,11 @@ import Head from 'next/head'
 import {Box, Button, Card, CardContent, Typography} from '@material-ui/core';
 import {useEffect, useState} from 'react';
 import Link from 'next/link';
-import ButtonError from '../../client/components/shared/ButtonError';
+import ButtonError from '../../components/shared/ButtonError';
 import {NetworkStatus} from '@apollo/client';
-import {initializeApollo} from '../../client/lib/apollo';
-import {useCreatePortfolio, useDeletePortfolio, useGetPortfolios, useUpdatePortfolio} from '../../client/apollo/actions';
-import {GET_PORTFOLIOS} from '../../client/apollo/queries';
+import {initializeApollo} from '../../lib/apollo';
+import {useCreatePortfolio, useDeletePortfolio, useGetPortfolios, useUpdatePortfolio} from '../../apollo/actions';
+import {GET_PORTFOLIOS} from '../../apollo/queries';
 
 export default function Portfolios() {
 	const {data, networkStatus} = useGetPortfolios();

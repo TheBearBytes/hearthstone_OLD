@@ -1,12 +1,12 @@
-import Layout from "../client/components/Layout";
+import Layout from "../components/Layout";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React, {useEffect} from "react";
-import theme from "../client/theme/theme";
+import theme from "../theme/theme";
 import {ThemeProvider} from "@material-ui/styles";
 import {ApolloProvider} from '@apollo/client';
 import {Provider} from 'react-redux';
-import {useApollo} from '../client/lib/apollo';
-import {useStore} from '../client/lib/redux';
+import {useApollo} from '../lib/apollo';
+import {useStore} from '../lib/redux';
 
 
 export default function App({Component, pageProps}) {

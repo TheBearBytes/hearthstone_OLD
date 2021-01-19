@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import {useQuery} from '@apollo/client';
-import {GET_PORTFOLIO, GET_PORTFOLIOS} from '../../client/apollo/queries';
-import {initializeApollo} from '../../client/lib/apollo';
+import {GET_PORTFOLIO, GET_PORTFOLIOS} from '../../apollo/queries';
+import {initializeApollo} from '../../lib/apollo';
 
 export default function Portfolio({id}) {
 	const {data} = useQuery(GET_PORTFOLIO, {variables: {id}});
