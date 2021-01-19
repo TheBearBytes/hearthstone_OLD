@@ -1,9 +1,12 @@
 import portfolioType from './portfolio';
+import cardType from './card';
 
 const rootQuery = `
 	type Query { 
 	 	portfolio(id: ID): Portfolio,
 		portfolios: [Portfolio],
+	 	card(id: ID): Card,
+		cards: [Card],
 	}
 `;
 
@@ -19,6 +22,7 @@ const type = `
 	${rootQuery}
 	${rootMutation}
 	${portfolioType}
+	${cardType}
 `;
 
 export default type;
