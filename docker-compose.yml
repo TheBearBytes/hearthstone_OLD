@@ -5,26 +5,28 @@ services:
   client:
     build: ./client
     image: client
+    container_name: hs-client
     volumes:
       - ./client:/usr/src/client
     ports:
       - "3001:3001"
     networks:
-      - hearthstone-network
+      - hs-network
     depends_on:
       - mongo
 
   mongo:
-    image: mongo:4.4.3-bionic
+    image: mongo:4.4
+    container_name: hs-mongo
     ports:
       - "27017:27017"
     networks:
-      - hearthstone-network
+      - hs-network
     volumes:
       - mongo-data:/data/db
 
 networks:
-  hearthstone-network:
+  hs-network:
     driver: bridge
 
 volumes:
