@@ -25,6 +25,16 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  mongo-express:
+    image: mongo-express
+    container_name: hs-mongo-express
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    networks:
+      - hs-network
+
 networks:
   hs-network:
     driver: bridge
