@@ -23,6 +23,7 @@ const Header = () => {
 								{renderLink('/', 'Home')}
 								{renderLink('/blog', 'Blog')}
 								{renderLink('/portfolios', 'Portfolios')}
+								{renderLink('/cards', 'Cards')}
 								{renderLink('/about', 'About')}
 							</ButtonGroup>
 							<ButtonGroup variant="text" color="primary" aria-label="text primary button group">

@@ -72,3 +72,15 @@ export const DELETE_PORTFOLIO = gql`
     mutation DeletePortfolio($id: ID) {
         deletePortfolio(id: $id)
     }`;
+
+export const GET_CARDS = gql`
+    query Cards {
+        cards {
+            _id,
+            id,
+            name,
+            text,
+            flavor,
+        }
+    }
+`;
