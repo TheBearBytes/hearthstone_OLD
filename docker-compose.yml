@@ -4,12 +4,26 @@ services:
 
   client:
     build: ./client
-    image: client
+    image: hs-client
     container_name: hs-client
     volumes:
       - ./client:/usr/src/client
     ports:
       - "3001:3001"
+    networks:
+      - hs-network
+    depends_on:
+      - mongo
+      - server
+
+  server:
+    build: ./server
+    image: hs-server
+    container_name: hs-server
+    volumes:
+      - ./server:/usr/src/server
+    ports:
+      - "5001:5001"
     networks:
       - hs-network
     depends_on:

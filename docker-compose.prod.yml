@@ -3,3 +3,5 @@ version: "3"
 services:
   client:
     command: prod
+  server:
+    command: prod
