@@ -1,35 +1,22 @@
-import fakeData from '../../../db/fakeData';
+import Deck from '../../../db/models/deck'
 
 export const deckQueries = {
-	deck: (root, {id}) => fakeData.deck.find(p => p._id === id),
-	decks: () => fakeData.deck,
+	deck: (root, {id}) => Deck.findById(id),
+	decks: () => Deck.find({}),
 };
 
 export const deckMutations = {
-	createDeck: (root, {input}) => {
-		const deck = {
-			...input,
-			_id: Math.floor(Math.random() * 16777215).toString(16)
-		}
-
-		fakeData.deck.push(deck);
+	createDeck: async (root, {input}) => {
+		console.log(111, input)
+		const deck = await Deck.create(input);
 		return deck;
 	},
-	updateDeck: (root, {id, input}) => {
-		const idx = fakeData.deck.findIndex(p => p._id === id);
-		const deckToUpdate = fakeData.deck[idx];
-		const deck = {
-			...deckToUpdate,
-			...input,
-		}
-
-		fakeData.deck[idx] = deck;
+	updateDeck: async (root, {id, input}) => {
+		const deck = await Deck.findOneAndUpdate({_id: id}, input, {new: true});
 		return deck;
 	},
-	deleteDeck: (root, {id}) => {
-		const idx = fakeData.deck.findIndex(p => p._id === id);
-		fakeData.deck.splice(idx, 1);
-
-		return id;
+	deleteDeck: async (root, {id}) => {
+		const deck = await Deck.findOneAndRemove({_id: id});
+		return deck._id;
 	}
 }

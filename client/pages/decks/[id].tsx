@@ -2,11 +2,12 @@ import Head from 'next/head'
 import {useQuery} from '@apollo/client';
 import {GET_DECK, GET_DECKS} from '../../apollo/queries';
 import {initializeApollo} from '../../lib/apollo';
+import DeckType from '../../types/deck';
 
 export default function Deck({id}) {
 	const {data} = useQuery(GET_DECK, {variables: {id}});
 
-	const deck = data && data.deck || {};
+	const deck: DeckType = data && data.deck || {};
 
 	return (
 		<>
@@ -15,6 +16,9 @@ export default function Deck({id}) {
 			</Head>
 			<section>
 				<h1>{deck.title}</h1>
+				<ul>
+					{deck.cardsId.map(c => (<li key={c}>{c}</li>))}
+				</ul>
 			</section>
 		</>
 	)

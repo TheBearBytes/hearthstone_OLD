@@ -1,5 +1,5 @@
 import {useMutation, useQuery} from '@apollo/client';
-import {CREATE_DECK, DELETE_DECK, GET_DECKS, UPDATE_DECKS} from './queries';
+import {CREATE_DECK, DELETE_DECK, GET_DECKS, UPDATE_DECK} from './queries';
 
 const onDeckCreated = (cache, {data: {createDeck}}) => {
 	const {decks: cachedDecks} = cache.readQuery({query: GET_DECKS});
@@ -36,4 +36,4 @@ export const useCreateDeck = () => useMutation(CREATE_DECK, {update: onDeckCreat
 // todo: warning Cache data may be lost when replacing the decks field of a Query object
 export const useDeleteDeck = () => useMutation(DELETE_DECK, {update: onDeckDeleted});
 
-export const useUpdateDeck = () => useMutation(UPDATE_DECKS);
+export const useUpdateDeck = () => useMutation(UPDATE_DECK);
