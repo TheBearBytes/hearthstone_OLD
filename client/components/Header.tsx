@@ -22,7 +22,7 @@ const Header = () => {
 							<ButtonGroup variant="text" color="primary" aria-label="text primary button group">
 								{renderLink('/', 'Home')}
 								{renderLink('/blog', 'Blog')}
-								{renderLink('/portfolios', 'Portfolios')}
+								{renderLink('/decks', 'Decks')}
 								{renderLink('/cards', 'Cards')}
 								{renderLink('/about', 'About')}
 							</ButtonGroup>

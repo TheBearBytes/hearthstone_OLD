@@ -1,10 +1,10 @@
-import portfolioType from './portfolio';
+import deckType from './deck';
 import cardType from './card';
 
 const rootQuery = `
 	type Query { 
-	 	portfolio(id: ID): Portfolio,
-		portfolios: [Portfolio],
+	 	deck(id: ID): Deck,
+		decks: [Deck],
 	 	card(id: ID): Card,
 		cards: [Card],
 	}
@@ -12,16 +12,16 @@ const rootQuery = `
 
 const rootMutation = `
 	type Mutation { 
-		createPortfolio(input: PortfolioInput): Portfolio,
-		updatePortfolio(id: ID, input: PortfolioInput): Portfolio,
-		deletePortfolio(id: ID): ID,
+		createDeck(input: DeckInput): Deck,
+		updateDeck(id: ID, input: DeckInput): Deck,
+		deleteDeck(id: ID): ID,
 	}
 `;
 
 const type = `
 	${rootQuery}
 	${rootMutation}
-	${portfolioType}
+	${deckType}
 	${cardType}
 `;
 

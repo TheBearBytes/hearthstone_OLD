@@ -1,8 +1,8 @@
 import {gql} from '@apollo/client';
 
-export const GET_PORTFOLIO = gql`
-    query Portfolio($id: ID) {
-        portfolio (id: $id) {
+export const GET_DECK = gql`
+    query Deck($id: ID) {
+        deck (id: $id) {
             _id,
             title,
             company,
@@ -16,9 +16,9 @@ export const GET_PORTFOLIO = gql`
     }
 `
 
-export const GET_PORTFOLIOS = gql`
-    query Portfolios {
-        portfolios {
+export const GET_DECKS = gql`
+    query Decks {
+        decks {
             _id,
             title,
             company
@@ -26,9 +26,9 @@ export const GET_PORTFOLIOS = gql`
     }
 `
 
-export const CREATE_PORTFOLIO = gql`
-    mutation CreatePortfolio {
-        createPortfolio(input: {
+export const CREATE_DECK = gql`
+    mutation CreateDeck {
+        createDeck(input: {
             title: "New title test",
             company: "121221",
             companyWebsite: "121221",
@@ -44,9 +44,9 @@ export const CREATE_PORTFOLIO = gql`
     }
 `;
 
-export const UPDATE_PORTFOLIO = gql`
-    mutation UpdatePortfolio($id: ID) {
-        updatePortfolio(id: $id, input: {
+export const UPDATE_DECKS = gql`
+    mutation UpdateDeck($id: ID) {
+        updateDeck(id: $id, input: {
             title: "UPDATE Job"
             company: "UPDATE Company"
             companyWebsite: "UPDATE Website"
@@ -68,9 +68,9 @@ export const UPDATE_PORTFOLIO = gql`
         }
     }`;
 
-export const DELETE_PORTFOLIO = gql`
-    mutation DeletePortfolio($id: ID) {
-        deletePortfolio(id: $id)
+export const DELETE_DECK = gql`
+    mutation DeleteDeck($id: ID) {
+        deleteDeck(id: $id)
     }`;
 
 export const GET_CARDS = gql`

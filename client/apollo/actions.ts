@@ -1,28 +1,28 @@
 import {useMutation, useQuery} from '@apollo/client';
-import {CREATE_PORTFOLIO, DELETE_PORTFOLIO, GET_PORTFOLIOS, UPDATE_PORTFOLIO} from './queries';
+import {CREATE_DECK, DELETE_DECK, GET_DECKS, UPDATE_DECKS} from './queries';
 
-const onPortfolioCreated = (cache, {data: {createPortfolio}}) => {
-	const {portfolios: cachedPortfolios} = cache.readQuery({query: GET_PORTFOLIOS});
-	const portfolios = [...cachedPortfolios, createPortfolio];
+const onDeckCreated = (cache, {data: {createDeck}}) => {
+	const {decks: cachedDecks} = cache.readQuery({query: GET_DECKS});
+	const decks = [...cachedDecks, createDeck];
 
 	cache.writeQuery({
-		query: GET_PORTFOLIOS,
-		data: {portfolios},
+		query: GET_DECKS,
+		data: {decks},
 	});
 }
 
-const onPortfolioDeleted = (cache, {data: {deletePortfolio}}) => {
-	const {portfolios: cachedPortfolios} = cache.readQuery({query: GET_PORTFOLIOS})
-	const portfolios = cachedPortfolios.filter(p => p._id !== deletePortfolio);
+const onDeckDeleted = (cache, {data: {deleteDeck}}) => {
+	const {decks: cachedDecks} = cache.readQuery({query: GET_DECKS})
+	const decks = cachedDecks.filter(p => p._id !== deleteDeck);
 
 	cache.writeQuery({
-		query: GET_PORTFOLIOS,
-		data: { portfolios }
+		query: GET_DECKS,
+		data: { decks }
 	});
 }
 
-export const useGetPortfolios = () => useQuery(
-	GET_PORTFOLIOS,
+export const useGetDecks = () => useQuery(
+	GET_DECKS,
 	{
 		// Setting this value to true will make the component rerender when
 		// the "networkStatus" changes, so we are able to know if it is fetching
@@ -31,9 +31,9 @@ export const useGetPortfolios = () => useQuery(
 	}
 );
 
-export const useCreatePortfolio = () => useMutation(CREATE_PORTFOLIO, {update: onPortfolioCreated});
+export const useCreateDeck = () => useMutation(CREATE_DECK, {update: onDeckCreated});
 
-// todo: warning Cache data may be lost when replacing the portfolios field of a Query object
-export const useDeletePortfolio = () => useMutation(DELETE_PORTFOLIO, {update: onPortfolioDeleted});
+// todo: warning Cache data may be lost when replacing the decks field of a Query object
+export const useDeleteDeck = () => useMutation(DELETE_DECK, {update: onDeckDeleted});
 
-export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
+export const useUpdateDeck = () => useMutation(UPDATE_DECKS);
