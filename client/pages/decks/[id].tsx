@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import {useQuery} from '@apollo/client';
-import {GET_DECK, GET_DECKS} from '../../apollo/queries';
+import {GET_DECK} from '../../apollo/queries';
 import {initializeApollo} from '../../lib/apollo';
 import DeckType from '../../types/deck';
 
@@ -24,7 +24,7 @@ export default function Deck({id}) {
 	)
 }
 
-export async function getStaticProps({params: {id}}) {
+export async function getServerSideProps({params: {id}}) {
 	const apolloClient = initializeApollo()
 
 	await apolloClient.query({
@@ -36,22 +36,6 @@ export async function getStaticProps({params: {id}}) {
 		props: {
 			initialApolloState: apolloClient.cache.extract(),
 			id
-		},
-		revalidate: 1,
+		}
 	}
-}
-
-export async function getStaticPaths() {
-	const apolloClient = initializeApollo()
-
-	const {data: {decks}} = await apolloClient.query({
-		query: GET_DECKS,
-	})
-
-	return {
-		paths: decks.map(p => ({
-			params: {id: p._id},
-		})),
-		fallback: false, // redirect to 404 when id not found
-	};
 }

@@ -2,7 +2,7 @@ import Card from '../../../db/models/card'
 
 const cardQueries = {
 	card: (root, {id}) => Card.findById(id),
-	cards: () => Card.find({}).limit(10),
+	cards: () => Card.find({}).skip(1).limit(30),
 };
 
 export default cardQueries;

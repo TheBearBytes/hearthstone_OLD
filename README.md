@@ -5,6 +5,7 @@ This is a project to learn some JS stuff like GraphQL (with both - Apollo Server
 ## TODO:
 - prod docker-compose
 - mongodb user/password
+- logs
 
 ## Project
 
@@ -25,5 +26,5 @@ This is a project to learn some JS stuff like GraphQL (with both - Apollo Server
 NextJS SSR with Express.
 
 ## Some links:
-https://www.youtube.com/watch?v=0B2raYYH2fE&ab_channel=DevOpsDirective
-
+* [Simple MERN docker-compose - YT](https://www.youtube.com/watch?v=0B2raYYH2fE&ab_channel=DevOpsDirective)
+* [NodeJS Microservices - YT](https://www.youtube.com/watch?v=EsCfPxjmnjo&ab_channel=FredrikChristenson)

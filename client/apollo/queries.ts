@@ -66,10 +66,30 @@ export const GET_CARDS = gql`
     query Cards {
         cards {
             _id,
-            id,
             name,
-            text,
-            flavor,
+            attack,
+            cost,
+            cardClass,
+			rarity,
+			set,
+			type,
         }
     }
 `;
+
+export const GET_CARD = gql`
+    query Card($id: ID) {
+        card (id: $id) {
+            _id,
+            id,
+            name,
+            text,
+            attack,
+            cost,
+            cardClass,
+            rarity,
+            set,
+            type,
+        }
+    }
+`
