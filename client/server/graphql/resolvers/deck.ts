@@ -7,7 +7,6 @@ export const deckQueries = {
 
 export const deckMutations = {
 	createDeck: async (root, {input}) => {
-		console.log(111, input)
 		const deck = await Deck.create(input);
 		return deck;
 	},
