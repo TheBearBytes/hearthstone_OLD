@@ -8,6 +8,7 @@ services:
     container_name: hs-client
     volumes:
       - ./client:/usr/src/client
+      - /usr/src/client/node_modules/
     ports:
       - "3001:3001"
     networks:
@@ -22,6 +23,7 @@ services:
     container_name: hs-server
     volumes:
       - ./server:/usr/src/server
+      - /usr/src/server/node_modules/
     ports:
       - "5001:5001"
     networks:
