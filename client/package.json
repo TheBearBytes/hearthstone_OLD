@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch server server/index.ts",
+    "dev": "nodemon ./server/index.ts",
     "build": "next build",
-    "prod": "NODE_ENV=production ts-node server/index.ts"
+    "prod": "NODE_ENV=production ts-node ./server/index.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
