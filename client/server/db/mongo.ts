@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
+import {default as connectMongoDBSession, MongoDBSessionOptions} from 'connect-mongodb-session';
+import session from 'express-session';
 // import {populate} from './populate';
+
+const MongoDBStore = connectMongoDBSession(session);
 
 const options = {
 	useNewUrlParser: true,
@@ -7,14 +11,20 @@ const options = {
 	useCreateIndex: true,
 };
 
+// todo: move to env
 const connectionString = 'mongodb://mongo:27017/hearthstone';
 
-import './models/user';
+// import './models/user';
 
-const connectToMongo = () => {
+export const connectToMongo = () => {
 	mongoose.connect(connectionString, options, () => {
 		console.log("Connected to MongoDB ", connectionString);
 	});
 }
 
-export default connectToMongo;
+export const getMongoSessionStore = () => {
+	return new MongoDBStore({
+		uri: connectionString,
+		collection: 'session',
+	} as MongoDBSessionOptions);
+};

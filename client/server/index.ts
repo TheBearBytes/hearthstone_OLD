@@ -1,7 +1,8 @@
 import express from 'express';
 import next from 'next';
 import apolloServer from './graphql';
-import connectToMongo from './db/mongo';
+import {connectToMongo} from './db/mongo';
+import initMiddleware from './middleware';
 
 const port = parseInt(process.env.PORT, 10) || 3001;
 const dev = process.env.NODE_ENV !== 'production';
@@ -12,6 +13,7 @@ connectToMongo();
 
 app.prepare().then(() => {
 	const server = express();
+	initMiddleware(server);
 
 	apolloServer.applyMiddleware({app: server})
 
