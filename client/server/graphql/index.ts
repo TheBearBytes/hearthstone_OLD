@@ -3,6 +3,7 @@ import type from './types';
 import {deckMutations, deckQueries} from './resolvers/deck';
 import cardQueries from './resolvers/card';
 import {userMutations} from './resolvers/user';
+import authContext from './context/authContext';
 
 const typeDefs = gql`${type}`;
 
@@ -20,6 +21,9 @@ const resolvers = {
 const apolloServer = new ApolloServer({
 	typeDefs,
 	resolvers,
+	context: () => ({
+		...authContext()
+	})
 })
 
 export default apolloServer;

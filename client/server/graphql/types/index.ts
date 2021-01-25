@@ -1,5 +1,6 @@
 import deckType from './deck';
 import cardType from './card';
+import userType from './user';
 
 const rootQuery = `
 	type Query { 
@@ -16,9 +17,9 @@ const rootMutation = `
 		updateDeck(id: ID, input: DeckInput): Deck,
 		deleteDeck(id: ID): ID,
 		
-		signIn: String,
+		signIn(input: SignInInput): User,
 		signOut: String,
-		register: String,
+		register(input: UserInput): User,
 	}
 `;
 
@@ -27,6 +28,7 @@ const type = `
 	${rootMutation}
 	${deckType}
 	${cardType}
+	${userType}
 `;
 
 export default type;

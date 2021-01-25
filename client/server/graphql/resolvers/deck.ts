@@ -1,4 +1,4 @@
-import Deck from '../../../db/models/deck'
+import Deck from '../../db/models/deck'
 
 export const deckQueries = {
 	deck: (root, {id}) => Deck.findById(id),

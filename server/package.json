@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch src src/index.ts",
-    "prod": "NODE_ENV=production ts-node src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "prod": "NODE_ENV=production ts-node ./src/index.ts"
   },
   "dependencies": {
     "express": "^4.17.1",

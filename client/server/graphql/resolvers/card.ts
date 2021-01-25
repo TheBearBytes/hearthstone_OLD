@@ -1,4 +1,4 @@
-import Card from '../../../db/models/card'
+import Card from '../../db/models/card'
 
 const cardQueries = {
 	card: (root, {id}) => Card.findById(id),
