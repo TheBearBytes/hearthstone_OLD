@@ -40,6 +40,15 @@ const userSchema = new Schema({
 	}
 });
 
+userSchema.methods.validatePassword = function(candidatePassword, done) {
+	// @ts-ignore
+	bcrypt.compare(candidatePassword, this.password, function(error, isSuccess) {
+		if (error) { return done(error); }
+
+		return done(null, isSuccess);
+	})
+}
+
 userSchema.pre('save', function (next) {
 	const user = this;
 

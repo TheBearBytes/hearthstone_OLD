@@ -13,7 +13,12 @@ export const initPassportStrategies = (passport) => {
 				if (error) return callback(error);
 				if (!user) return callback(null, false);
 
-				return callback(null, user);
+				user.validatePassword(password, (passwordError, isSuccess) => {
+					if (error) return callback(passwordError);
+					if (!isSuccess) return callback(null, false);
+
+					return callback(null, user);
+				});
 			});
 		}
 	));

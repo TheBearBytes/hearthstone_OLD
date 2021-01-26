@@ -1,13 +1,14 @@
 import User from '../../db/models/user';
+import errorCodes from '../../const/errorCodes';
 
 export const userMutations = {
 	signIn: async (root, {input}, ctx) => {
 		try {
 			const user = await ctx.authenticate(input);
-			console.log("Sign in user END OF CYCLE", user);
+			console.log("Sign in user ", user);
 			return user;
 		} catch (e) {
-			console.log("Sign in user error END OF CYCLE", e);
+			console.log("Sign in user error ", e);
 			return e;
 		}
 	},
@@ -18,8 +19,7 @@ export const userMutations = {
 		if (input.password === input.passwordConfirmation) {
 			return await User.create(input);
 		} else {
-			// todo: create error codes
-			throw new Error('Password confirmation is not correct!')
+			throw new Error(errorCodes.LOGIN_INCORRECT_PASSWORD_CONFIRMATION)
 		}
 	},
 }
