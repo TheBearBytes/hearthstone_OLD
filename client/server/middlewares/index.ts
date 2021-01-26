@@ -1,5 +1,7 @@
 import session, {SessionOptions} from 'express-session';
-import {getMongoSessionStore} from './db/mongo';
+import passport from 'passport';
+import {getMongoSessionStore} from '../db/mongo';
+import {initPassportStrategies} from './passport';
 
 const initMiddleware = (server) => {
 	// todo: move secret to .env
@@ -14,6 +16,7 @@ const initMiddleware = (server) => {
 		store: getMongoSessionStore(),
 	}
 
+	initPassportStrategies(passport);
 	server.use(session(sessionOptions));
 }
 

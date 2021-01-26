@@ -2,7 +2,7 @@ import express from 'express';
 import next from 'next';
 import apolloServer from './graphql';
 import {connectToMongo} from './db/mongo';
-import initMiddleware from './middleware';
+import initMiddleware from './middlewares';
 
 const port = parseInt(process.env.PORT, 10) || 3001;
 const dev = process.env.NODE_ENV !== 'production';
