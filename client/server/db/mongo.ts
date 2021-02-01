@@ -8,13 +8,8 @@ const options = {
 	useCreateIndex: true,
 };
 
-// todo: move to env
-const connectionString = 'mongodb://mongo:27017/hearthstone';
-
-// import './models/user';
-
 export const connectToMongo = () => {
-	mongoose.connect(connectionString, options, () => {
-		console.log("Connected to MongoDB ", connectionString);
+	mongoose.connect(process.env.DB_CONNECTION, options, () => {
+		console.log("Connected to MongoDB ", process.env.DB_CONNECTION);
 	});
 }

@@ -22,6 +22,7 @@ const userSchema = new Schema({
 		minlength: [6, 'Minimum username length is 6 characters!'],
 		maxlength: [32, 'Maximum password length is 32 characters!'],
 	},
+	// todo: add salt to stronger auth?
 	password: {
 		type: String,
 		required: true,
@@ -34,20 +35,9 @@ const userSchema = new Schema({
 		required: true,
 		default: 'USER'
 	},
-	createdAt: {
-		type: Date,
-		default: Date.now
-	}
+}, {
+	timestamps: true,
 });
-
-userSchema.methods.validatePassword = function(candidatePassword, done) {
-	// @ts-ignore
-	bcrypt.compare(candidatePassword, this.password, function(error, isSuccess) {
-		if (error) { return done(error); }
-
-		return done(null, isSuccess);
-	})
-}
 
 userSchema.pre('save', function (next) {
 	const user = this;

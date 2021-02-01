@@ -17,7 +17,7 @@ const userType = `
 		passwordConfirmation: String!
 	}
 	
-	input SignInInput {
+	input LoginInput {
 		email: String!
 		password: String!
 	}

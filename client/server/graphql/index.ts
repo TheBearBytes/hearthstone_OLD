@@ -21,7 +21,9 @@ const resolvers = {
 const apolloServer = new ApolloServer({
 	typeDefs,
 	resolvers,
-	context: () => ({
+	context: ({res, req}) => ({
+		res,
+		req,
 		...authContext()
 	})
 })

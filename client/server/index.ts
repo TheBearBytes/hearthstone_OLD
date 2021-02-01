@@ -1,8 +1,11 @@
+require('dotenv');
+
 import express from 'express';
 import next from 'next';
 import apolloServer from './graphql';
 import {connectToMongo} from './db/mongo';
-import initMiddleware from './middlewares';
+import {initPassportStrategies} from "./middlewares/passport";
+import authMiddleware from "./middlewares/authMiddleware";
 
 const port = parseInt(process.env.PORT, 10) || 3001;
 const dev = process.env.NODE_ENV !== 'production';
@@ -13,7 +16,9 @@ connectToMongo();
 
 app.prepare().then(() => {
 	const server = express();
-	initMiddleware(server);
+	initPassportStrategies();
+
+	authMiddleware(server);
 
 	apolloServer.applyMiddleware({app: server})
 
