@@ -3,7 +3,7 @@ require('dotenv');
 import express from 'express';
 import next from 'next';
 import apolloServer from './graphql';
-import {connectToMongo} from './db/mongo';
+import {connectToMongo} from './db/connect';
 import {initPassportStrategies} from "./middlewares/passport";
 import authMiddleware from "./middlewares/authMiddleware";
 

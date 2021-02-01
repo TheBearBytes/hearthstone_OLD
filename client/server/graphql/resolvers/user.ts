@@ -8,14 +8,13 @@ export const userMutations = {
         try {
             const user = await ctx.authenticate(input);
 
-            // todo: move
             const accessToken = jwt.sign(
                 {userId: user._id, userRole: user.role},
                 process.env.JWT_ACCESS_TOKEN_SECRET,
-                {expiresIn: '15m'}
+                {expiresIn: '1m'}
             );
             (ctx.res as express.Response).cookie('access-token', accessToken, {
-                expires: new Date(Date.now() + (1000 * 60))
+                // expires: new Date(Date.now() + (1000 * 60))
             });
 
             return user;

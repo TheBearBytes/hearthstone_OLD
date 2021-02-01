@@ -7,7 +7,25 @@ This is a project to learn some JS stuff like GraphQL (with both - Apollo Server
 - mongodb user/password
 - logs
 
-## Project
+## Highlighting
+
+- [x] react hooks
+- [x] redux & redux dev tools
+- [ ] formik & yup validation
+- [x] material ui  
+- [x] next (ssr and ssg pages) with express
+- [ ] passport auth (custom, google, fb)
+- [ ] i18n
+- [x] graphql powered by Apollo (client and server)
+- [x] typescript
+- [x] mongodb
+- [x] docker-compose
+- [ ] deployed on VPS
+- [ ] ngnix
+
+## Run
+
+Change name of `.env.example` to `.env` in `client` and enter your keys.
 
 ### Development
 
@@ -21,10 +39,7 @@ This is a project to learn some JS stuff like GraphQL (with both - Apollo Server
  4. After build, exit client (`exit`) and stop development `docker-compose  -f docker-compose.yml -f docker-compose.dev.yml stop`.
 5. Finally run: `docker-compose  -f docker-compose.yml -f docker-compose.prod.yml up` to run built app.
 
-### Client
-
-NextJS SSR with Express.
-
 ## Some links:
 * [Simple MERN docker-compose - YT](https://www.youtube.com/watch?v=0B2raYYH2fE&ab_channel=DevOpsDirective)
 * [NodeJS Microservices - YT](https://www.youtube.com/watch?v=EsCfPxjmnjo&ab_channel=FredrikChristenson)
+* [JWT](https://www.youtube.com/watch?v=RUZB8tpyDbQ&ab_channel=BenAwad)
