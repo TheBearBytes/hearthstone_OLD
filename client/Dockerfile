@@ -1,14 +1,10 @@
-FROM node:14-slim
+FROM node:14.15.4-alpine3.10
+RUN apk update && apk add python3 make g++
 
 WORKDIR /usr/src/client
 
 COPY ./package.json ./
 COPY ./yarn.lock ./
-COPY ./.env ./
-
-#bcryptjs fix on linux https://github.com/kelektiv/node.bcrypt.js/issues/736#issuecomment-510285927
-#RUN apk --no-cache add --virtual builds-deps build-base python
-#todo probably yarn add node-gyp is the solution - check
 
 RUN yarn install
 
