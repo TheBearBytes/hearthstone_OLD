@@ -5,7 +5,7 @@ import {Button} from "@material-ui/core";
 import loginFormValidationSchema from "./loginFormValidationSchema";
 import useStyles from '../style';
 
-const LoginForm = () => {
+const LoginForm = ({onSubmit, loading}) => {
     const classes = useStyles();
 
     const formik = useFormik({
@@ -15,9 +15,7 @@ const LoginForm = () => {
             password: '',
         },
         validationSchema: loginFormValidationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        },
+        onSubmit,
     });
 
     return (
@@ -54,6 +52,7 @@ const LoginForm = () => {
                 variant="contained"
                 fullWidth
                 type="submit"
+                disabled={loading}
             >
                 Submit
             </Button>

@@ -5,22 +5,20 @@ import TextField from '@material-ui/core/TextField';
 import {Button} from "@material-ui/core";
 import useStyles from '../style';
 
-const RegisterForm = () => {
+const RegisterForm = ({onSubmit, loading}) => {
     const classes = useStyles();
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
             email: '',
-            userName: '',
+            username: '',
             avatar: '',
             password: '',
             passwordConfirmation: '',
         },
         validationSchema: registerFormValidationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        },
+        onSubmit,
     });
 
     return (
@@ -41,10 +39,10 @@ const RegisterForm = () => {
             />
             <TextField
                 fullWidth
-                id="userName"
-                name="userName"
+                id="username"
+                name="username"
                 label="User name"
-                value={formik.values.userName}
+                value={formik.values.username}
                 onChange={formik.handleChange}
             />
             <TextField
@@ -85,6 +83,7 @@ const RegisterForm = () => {
                 variant="contained"
                 fullWidth
                 type="submit"
+                disabled={loading}
             >
                 Submit
             </Button>
