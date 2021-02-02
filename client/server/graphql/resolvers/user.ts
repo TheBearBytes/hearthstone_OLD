@@ -24,9 +24,14 @@ export const userMutations = {
     },
     register: async (root, {input}) => {
         if (input.password === input.passwordConfirmation) {
-            return await User.create(input);
+            try {
+                return await User.create(input);
+            } catch (e) {
+                if (e.code === 11000) throw new Error(errorCodes.REGISTER_EMAIL_EXISTS_ERROR);
+                throw new Error(errorCodes.VALIDATION_ERROR);
+            }
         } else {
-            throw new Error(errorCodes.LOGIN_INCORRECT_PASSWORD_CONFIRMATION)
+            throw new Error(errorCodes.LOGIN_INCORRECT_PASSWORD_CONFIRMATION);
         }
     },
 }

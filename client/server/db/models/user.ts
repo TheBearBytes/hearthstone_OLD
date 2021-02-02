@@ -5,21 +5,25 @@ const Schema = mongoose.Schema;
 
 const emailRegExp = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 
+
+// todo: avatar as uploaded img
 const userSchema = new Schema({
-	avatar: {type: String},
+	avatar: {
+		type: String,
+		maxlength: [32, 'Maximum password length is 32 characters!'],
+	},
 	email: {
 		type: String,
 		required: 'Email is required!',
 		lowercase: true,
 		index: true,
 		unique: true,
+		maxlength: [32, 'Maximum password length is 32 characters!'],
 		// @ts-ignore
 		match: [emailRegExp]
 	},
 	username: {
 		type: String,
-		required: true,
-		minlength: [6, 'Minimum username length is 6 characters!'],
 		maxlength: [32, 'Maximum password length is 32 characters!'],
 	},
 	// todo: add salt to stronger auth?
