@@ -26,6 +26,10 @@ const Header = () => {
 								{renderLink('/cards', 'Cards')}
 								{renderLink('/about', 'About')}
 							</ButtonGroup>
+							<ButtonGroup variant="text" color="secondary" aria-label="text primary button group">
+								{renderLink('/register', 'Register')}
+								{renderLink('/login', 'Login')}
+							</ButtonGroup>
 							<ButtonGroup variant="text" color="primary" aria-label="text primary button group">
 								{renderLink('/graphql', 'GraphQL')}
 							</ButtonGroup>

@@ -1,6 +1,6 @@
 const userFields = `
 	avatar: String,
-	username: String!,
+	username: String,
 	email: String!,
 `;
 
