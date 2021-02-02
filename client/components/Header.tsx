@@ -1,6 +1,5 @@
 import React from "react";
 import Link from 'next/link'
-import Cookies from 'js-cookie';
 import {AppBar, Box, Button, ButtonGroup, Container, Toolbar} from "@material-ui/core";
 import {useRouter} from "next/router";
 
@@ -18,7 +17,7 @@ const Header = () => {
 	);
 
 	const onLogout = () => {
-		Cookies.remove('access-token');
+		// todo: send some req to invalidate cookie
 		router.push({pathname: '/'});
 	}
 

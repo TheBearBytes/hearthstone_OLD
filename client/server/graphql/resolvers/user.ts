@@ -15,6 +15,7 @@ export const userMutations = {
             );
             (ctx.res as express.Response).cookie('access-token', accessToken, {
                 // expires: new Date(Date.now() + (1000 * 60))
+                httpOnly: true,
             });
 
             return user;
