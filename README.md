@@ -6,6 +6,7 @@ This is a project to learn some JS stuff like GraphQL (with both - Apollo Server
 - prod docker-compose
 - mongodb user/password
 - logs
+- linters!
 
 ## Highlighting
 

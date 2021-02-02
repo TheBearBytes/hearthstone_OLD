@@ -15,13 +15,11 @@ const Register = () => {
         if (error) {
             showToast({
                 severity: 'error',
-                open: true,
                 message: error.message
             });
         } else if (success) {
             showToast({
                 severity: 'success',
-                open: true,
                 message: 'REGISTRATION_SUCCESS'
             });
         }

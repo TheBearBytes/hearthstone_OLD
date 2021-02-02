@@ -1,8 +1,12 @@
-import Link from 'next/link'
-import {AppBar, Box, Button, ButtonGroup, Container, Toolbar} from "@material-ui/core";
 import React from "react";
+import Link from 'next/link'
+import Cookies from 'js-cookie';
+import {AppBar, Box, Button, ButtonGroup, Container, Toolbar} from "@material-ui/core";
+import {useRouter} from "next/router";
 
 const Header = () => {
+	const router = useRouter();
+
 	const renderLink = (href: string, label: string) => (
 		<Link href={href}>
 			<a>
@@ -12,6 +16,11 @@ const Header = () => {
 			</a>
 		</Link>
 	);
+
+	const onLogout = () => {
+		Cookies.remove('access-token');
+		router.push({pathname: '/'});
+	}
 
 	// todo: add some route animation
 	// todo: style
@@ -31,6 +40,9 @@ const Header = () => {
 							<ButtonGroup variant="text" color="secondary" aria-label="text primary button group">
 								{renderLink('/register', 'Register')}
 								{renderLink('/login', 'Login')}
+								<Button onClick={onLogout}>
+									Logout
+								</Button>
 							</ButtonGroup>
 							<ButtonGroup variant="text" color="primary" aria-label="text primary button group">
 								{renderLink('/graphql', 'GraphQL')}
