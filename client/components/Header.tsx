@@ -13,6 +13,8 @@ const Header = () => {
 		</Link>
 	);
 
+	// todo: add some route animation
+	// todo: style
 	return (
 		<header>
 			<Box bgcolor="#252525" color="white" height={64}>

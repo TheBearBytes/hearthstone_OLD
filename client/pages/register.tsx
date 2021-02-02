@@ -1,22 +1,44 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {useDispatch} from 'react-redux';
 import RegisterForm from "../components/forms/register/RegisterForm";
 import {useMutation} from "@apollo/client";
 import {REGISTER} from "../apollo/queries/auth";
+import Redirect from "../components/shared/Redirect";
+import { setToast } from "../state/toast/toastSlice";
 
 const Register = () => {
-    const [register, { data, error, loading}] = useMutation(REGISTER);
+    const [register, {data, error, loading}] = useMutation(REGISTER);
+    const dispatch = useDispatch();
 
-    console.log('mutation error', error)
-    console.log('mutation data', data)
+    const success = data && data.register;
 
-    // todo: add some confirmation toast and reload on success
+    useEffect(() => {
+        if (error) {
+            dispatch(setToast({
+                severity: 'error',
+                open: true,
+                message: 'REGISTRATION_ERROR'
+            }));
+        } else if (success) {
+            dispatch(setToast({
+                severity: 'success',
+                open: true,
+                message: 'REGISTRATION_SUCCESS'
+            }));
+        }
+    }, [success, error]);
+
     return (
         <>
             <h1>Register</h1>
-            <RegisterForm
-                loading={loading}
-                onSubmit={(variables) => register({variables})}
-            />
+            {
+                success
+                    ? <Redirect to={'/login'}/>
+                    : <RegisterForm
+                        loading={loading}
+                        onSubmit={(variables) => register({variables})}
+                    />
+            }
         </>
     )
 };

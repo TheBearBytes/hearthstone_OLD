@@ -2,6 +2,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import {Box, Container} from "@material-ui/core";
 import React from "react";
+import Toast from "./Toast";
 
 const Layout = ({children}) => {
 	return (
@@ -17,6 +18,7 @@ const Layout = ({children}) => {
 				</Container>
 			</Box>
 			<Footer/>
+			<Toast/>
 		</Box>
 	)
 }

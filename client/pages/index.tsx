@@ -29,7 +29,7 @@ export default function Home() {
 
   const {lastUpdate} = useSelector(
       (state) => ({
-        lastUpdate: state.lastUpdate,
+        lastUpdate: state.reducer.lastUpdate,
       })
   );
 
@@ -47,7 +47,7 @@ export default function Home() {
 
         <div>
           <h2>Redux clock example</h2>
-          <div className="clock">{new Date(lastUpdate).toJSON().slice(11, 19)}</div>
+          <div className="clock">{lastUpdate && new Date(lastUpdate).toJSON().slice(11, 19)}</div>
         </div>
 
         <div>

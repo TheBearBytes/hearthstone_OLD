@@ -8,7 +8,6 @@ import {Provider} from 'react-redux';
 import {useApollo} from '../lib/apollo';
 import {useStore} from '../lib/redux';
 
-
 export default function App({Component, pageProps}) {
 	const store = useStore(pageProps.initialReduxState)
 	const client = useApollo(pageProps.initialApolloState)
