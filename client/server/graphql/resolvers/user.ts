@@ -3,6 +3,12 @@ import errorCodes from '../../const/errorCodes';
 import jwt from 'jsonwebtoken';
 import express from "express";
 
+export const userQueries = {
+    loggedUser: async (root, {}, ctx) => {
+        return await User.findById(ctx.req.userId);
+    },
+}
+
 export const userMutations = {
     login: async (root, {input}, ctx) => {
         try {
@@ -18,7 +24,7 @@ export const userMutations = {
                 httpOnly: true,
             });
 
-            return user;
+            return true;
         } catch (e) {
             return e;
         }
@@ -26,7 +32,8 @@ export const userMutations = {
     register: async (root, {input}) => {
         if (input.password === input.passwordConfirmation) {
             try {
-                return await User.create(input);
+                await User.create(input);
+                return true;
             } catch (e) {
                 if (e.code === 11000) throw new Error(errorCodes.REGISTER_EMAIL_EXISTS_ERROR);
                 throw new Error(errorCodes.VALIDATION_ERROR);

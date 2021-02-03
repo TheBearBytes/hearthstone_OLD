@@ -8,7 +8,8 @@ const rootQuery = `
 		decks: [Deck],
 	 	card(id: ID): Card,
 		cards: [Card],
-	}
+		loggedUser: User,
+	}	
 `;
 
 const rootMutation = `
@@ -17,8 +18,8 @@ const rootMutation = `
 		updateDeck(id: ID, input: DeckInput): Deck,
 		deleteDeck(id: ID): ID,
 		
-		login(input: LoginInput): User,
-		register(input: UserInput): User,
+		login(input: LoginInput): Boolean,
+		register(input: UserInput): Boolean,
 	}
 `;
 

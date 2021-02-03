@@ -14,9 +14,7 @@ export const REGISTER = gql`
           email: $email
           password: $password
           passwordConfirmation: $passwordConfirmation
-        }), {
-            email
-        }
+        })
       }
 `;
 
@@ -28,8 +26,6 @@ export const LOGIN = gql`
         login(input: {
           email: $email
           password: $password
-        }), {
-            email
-        }
+        })
       }
 `;
