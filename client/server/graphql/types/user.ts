@@ -9,6 +9,7 @@ const userType = `
 		${userFields}
 		_id: ID,
 		createdAt: String,
+		role: String,
 	}
 	
 	input UserInput {

@@ -29,3 +29,13 @@ export const LOGIN = gql`
         })
       }
 `;
+
+export const GET_LOGGED_USER = gql`
+    query LoggedUser {
+        loggedUser {
+            username,
+            email,
+            role,
+        }
+    }
+`;

@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React, {useEffect} from "react";
 import theme from "../theme/theme";

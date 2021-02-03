@@ -1,5 +1,6 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import toastSlice from "./toast/toastSlice";
+import authSlice from "./auth/authSlice";
 
 const initialState = {
     lastUpdate: 0,
@@ -35,7 +36,8 @@ const reducer = (state = initialState, action) => {
 
 const rootReducer = combineReducers({
     reducer,
-    toast: toastSlice.reducer
+    toast: toastSlice.reducer,
+    auth: authSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

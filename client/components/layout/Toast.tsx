@@ -2,8 +2,8 @@ import React from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import {Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
-import {getToast} from "../state/toast/toastSelector";
-import {hideToast, IToastState} from "../state/toast/toastSlice";
+import {getToast} from "../../state/toast/toastSelector";
+import {hideToast, IToastState} from "../../state/toast/toastSlice";
 
 const Toast = () => {
     const dispatch = useDispatch();
