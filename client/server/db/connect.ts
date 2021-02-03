@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-// import {populate} from './populate';
-
 
 const options = {
 	useNewUrlParser: true,
@@ -8,8 +6,9 @@ const options = {
 	useCreateIndex: true,
 };
 
-export const connectToMongo = () => {
+export const connectToMongo = (callback?) => {
 	mongoose.connect(process.env.DB_CONNECTION, options, () => {
 		console.log("Connected to MongoDB ", process.env.DB_CONNECTION);
+		callback();
 	});
 }

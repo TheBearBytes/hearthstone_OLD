@@ -28,6 +28,8 @@ This is a project to learn some JS stuff like GraphQL (with both - Apollo Server
 
 Change name of `.env.example` to `.env` in `client` and enter your keys.
 
+To populate database run `docker exec -it hs-client yarn populateDb` on running project.
+
 ### Development
 
 `docker-compose  -f docker-compose.yml -f docker-compose.dev.yml up`

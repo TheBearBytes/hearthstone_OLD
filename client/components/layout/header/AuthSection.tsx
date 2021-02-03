@@ -17,7 +17,7 @@ const AuthSection = () => {
     if (user) {
         return (
             <>
-                <div>Hi {user.userName || user.email} ({user.roles})</div>
+                <div>Hi {user.userName || user.email} ({user.role})</div>
                 <Button>Logout</Button>
             </>
         )

@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 export interface IAuthState {
     userName: String,
     email: String,
-    roles: String[],
+    role: String[],
 }
 
 const initialState: IAuthState | null = null;
