@@ -12,8 +12,6 @@ export const initPassportStrategies = () => {
             // @ts-ignore
             const {email, password} = req;
 
-            console.log('req start', email, password)
-
             User.findOne({email}, (error, user) => {
                 if (error) return callback(error);
                 if (!user) return callback(null, false);

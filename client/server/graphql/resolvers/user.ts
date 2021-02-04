@@ -12,6 +12,8 @@ export const userQueries = {
 export const userMutations = {
     login: async (root, {input}, ctx) => {
         try {
+            // todo: move auth fn to some controller instead of context
+            // todo: set access-token to 15 min after test
             const user = await ctx.authenticate(input);
 
             const accessToken = jwt.sign(
@@ -20,7 +22,7 @@ export const userMutations = {
                 {expiresIn: '1m'}
             );
             (ctx.res as express.Response).cookie('access-token', accessToken, {
-                // expires: new Date(Date.now() + (1000 * 60))
+                expires: new Date(Date.now() + (1000 * 60)),
                 httpOnly: true,
             });
 

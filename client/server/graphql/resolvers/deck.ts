@@ -3,7 +3,6 @@ import Deck from '../../db/models/deck'
 export const deckQueries = {
 	deck: (root, {id}) => Deck.findById(id),
 	decks: (_,__,ctx) => {
-		console.log('getdeck', ctx.req.userId)
 		return Deck.find({})
 	},
 };
