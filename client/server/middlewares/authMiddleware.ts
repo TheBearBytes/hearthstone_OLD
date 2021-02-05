@@ -1,5 +1,6 @@
 import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken";
+import {IJwtUser} from "../types";
 
 const authMiddleware = (app) => {
 	app.use(cookieParser());
@@ -10,9 +11,8 @@ const authMiddleware = (app) => {
 
 		try {
 			// todo: refresh-token in the future
-			// todo: same logic during login
-			const verifyAccessToken = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN_SECRET) as any;
-			jwt.verify(loginToken, process.env.JWT_LOGIN_TOKEN_SECRET) as any;
+			jwt.verify(loginToken, process.env.JWT_LOGIN_TOKEN_SECRET);
+			const verifyAccessToken: IJwtUser = jwt.verify(accessToken, process.env.JWT_ACCESS_TOKEN_SECRET) as IJwtUser;
 
 			req.userId = verifyAccessToken.userId;
 			req.userRole = verifyAccessToken.userRole;
