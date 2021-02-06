@@ -1,12 +1,17 @@
 import jwt from 'jsonwebtoken';
 import {Response} from "express";
 import User from '../../db/models/user';
+import OAuthUser from '../../db/models/oauthUser';
 import errorCodes from '../../const/errorCodes';
 import {IJwtUser} from "../../types";
 
 export const userQueries = {
     loggedUser: async (root, {}, ctx) => {
-        return await User.findById(ctx.req.userId);
+        const user = await User.findById(ctx.req.userId);
+
+        if (user) return user;
+
+        return OAuthUser.findById(ctx.req.userId);
     },
 }
 
