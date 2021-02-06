@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: ITheme) => ({
         margin: 'auto'
     },
     button: {
-        marginTop: theme.variables.marginXl
+        marginTop: theme.variables.marginLg
     }
 }));
 
