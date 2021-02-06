@@ -3,7 +3,7 @@ import {ITheme} from "../../theme/theme";
 
 const useStyles = makeStyles((theme: ITheme) => ({
     root: {
-        width: 345,
+        maxWidth: theme.variables.smallFormMaxWidth,
         margin: 'auto'
     },
     button: {

@@ -4,6 +4,7 @@ import {LOGIN} from "../apollo/queries/auth";
 import LoginForm from "../components/forms/login/LoginForm";
 import useLoggedUser from "../hooks/useLoggedUser";
 import {useRouter} from "next/router";
+import OAuthLoginButtons from "../components/OAuthLoginButtons";
 
 const Login = () => {
     const [login, {loading}] = useMutation(LOGIN);
@@ -22,12 +23,13 @@ const Login = () => {
     return (
         <>
             <h1>Login</h1>
-            {<LoginForm
+            <LoginForm
                 loading={loading}
                 onSubmit={onLogin}
-            />}
+            />
+            <OAuthLoginButtons />
         </>
     )
-};
+}
 
 export default Login;

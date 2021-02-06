@@ -6,6 +6,7 @@ export interface ITheme extends ThemeOptions {
         marginSm: number,
         marginLg: number,
         marginXl: number,
+        smallFormMaxWidth: number,
     }
 }
 
@@ -23,6 +24,7 @@ const themeOptions: ITheme = {
         marginSm: 4,
         marginLg: 16,
         marginXl: 32,
+        smallFormMaxWidth: 345,
     }
 };
 

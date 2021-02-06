@@ -54,7 +54,7 @@ const LoginForm = ({onSubmit, loading}) => {
                 type="submit"
                 disabled={loading}
             >
-                Submit
+                Login
             </Button>
         </form>
     );
