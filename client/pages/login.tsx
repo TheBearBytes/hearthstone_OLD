@@ -1,17 +1,18 @@
 import React from "react";
-import {useMutation} from "@apollo/client";
-import {LOGIN} from "../apollo/queries/auth";
 import LoginForm from "../components/forms/login/LoginForm";
 import {useRouter} from "next/router";
 import OAuthLoginButtons from "../components/OAuthLoginButtons";
+import axios from "axios";
 
 const Login = () => {
-    const [login, {loading}] = useMutation(LOGIN);
-    // const loggedUser = useLoggedUser();
     const router = useRouter();
 
     const onLogin = async (variables) => {
-        const {data} = await login({variables});
+        // todo: axios client
+        const {data} = await axios.post('/api/login', {
+            email: variables.email,
+            password: variables.password,
+        });
 
         if (data.login) {
             router.push({pathname: '/'});
@@ -22,7 +23,7 @@ const Login = () => {
         <>
             <h1>Login</h1>
             <LoginForm
-                loading={loading}
+                loading={false}
                 onSubmit={onLogin}
             />
             <OAuthLoginButtons />
