@@ -3,7 +3,6 @@ import errorCodes from "../const/errorCodes";
 
 const authController = {
     authenticateUser: (options) => {
-        console.log('autcontroller opt', options)
         return new Promise((resolve, reject) => {
             passport.authenticate('custom', options, (err, user) => {
                 if (err) return reject(new Error(err));

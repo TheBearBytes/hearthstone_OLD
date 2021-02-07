@@ -1,41 +1,37 @@
-import React, {useEffect} from "react";
+import React from "react";
 import RegisterForm from "../components/forms/register/RegisterForm";
-import {useMutation} from "@apollo/client";
-import {REGISTER} from "../apollo/queries/auth";
-import Redirect from "../components/shared/Redirect";
 import useToast from "../hooks/useToast";
+import axios from "axios";
+import {useRouter} from "next/router";
 
 const Register = () => {
-    const [register, {data, error, loading}] = useMutation(REGISTER);
     const showToast = useToast();
+    const router = useRouter();
 
-    const success = data && data.register;
-
-    useEffect(() => {
-        if (error) {
-            showToast({
-                severity: 'error',
-                message: error.message
-            });
-        } else if (success) {
+    const onRegister = async (variables) => {
+        try {
+            await axios.post("/api/register", variables);
             showToast({
                 severity: 'success',
                 message: 'REGISTRATION_SUCCESS'
             });
+            await router.push({pathname: '/login'});
+        } catch (e) {
+            showToast({
+                severity: 'error',
+                message: e.message
+            });
         }
-    }, [success, error]);
+    }
 
+    // todo: loading
     return (
         <>
             <h1>Register</h1>
-            {
-                success
-                    ? <Redirect to={'/login'}/>
-                    : <RegisterForm
-                        loading={loading}
-                        onSubmit={(variables) => register({variables})}
-                    />
-            }
+            <RegisterForm
+                loading={false}
+                onSubmit={onRegister}
+            />
         </>
     )
 };

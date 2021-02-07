@@ -3,6 +3,7 @@ import OAuthUser from "../db/models/oauthUser";
 import {IJwtUser} from "../types";
 import jwt from "jsonwebtoken";
 import authController from "../controllers/authController";
+import errorCodes from "../const/errorCodes";
 
 const apiRoutes = (server) => {
     server.get(
@@ -48,6 +49,23 @@ const apiRoutes = (server) => {
                 res.send({login: true});
             } catch (e) {
                 return res.status(400).json({ error: e.toString() });
+            }
+        }
+    );
+
+    server.post("/api/register",
+        async (req, res) => {
+        const {password, passwordConfirmation} = req.body;
+            if (password === passwordConfirmation) {
+                try {
+                    await User.create(req.body);
+                    res.send({register: true});
+                } catch (e) {
+                    if (e.code === 11000) return res.status(400).json({ error: errorCodes.REGISTER_EMAIL_EXISTS_ERROR });
+                    return res.status(400).json({ error: errorCodes.VALIDATION_ERROR });
+                }
+            } else {
+                return res.status(400).json({ error: errorCodes.LOGIN_INCORRECT_PASSWORD_CONFIRMATION });
             }
         }
     );

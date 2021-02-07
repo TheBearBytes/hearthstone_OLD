@@ -2,8 +2,6 @@ import {ApolloServer, gql} from 'apollo-server-express';
 import type from './types';
 import {deckMutations, deckQueries} from './resolvers/deck';
 import cardQueries from './resolvers/card';
-import {userMutations} from './resolvers/user';
-import authContext from './context/authContext';
 
 const typeDefs = gql`${type}`;
 
@@ -14,7 +12,6 @@ const resolvers = {
 	},
 	Mutation: {
 		...deckMutations,
-		...userMutations,
 	},
 };
 
@@ -24,7 +21,6 @@ const apolloServer = new ApolloServer({
 	context: ({res, req}) => ({
 		res,
 		req,
-		...authContext()
 	})
 })
 

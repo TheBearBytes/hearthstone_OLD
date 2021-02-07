@@ -16,8 +16,6 @@ const rootMutation = `
 		createDeck(input: DeckInput): Deck,
 		updateDeck(id: ID, input: DeckInput): Deck,
 		deleteDeck(id: ID): ID,
-		
-		register(input: UserInput): Boolean,
 	}
 `;
 
