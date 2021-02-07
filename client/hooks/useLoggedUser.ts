@@ -1,24 +1,22 @@
 import {useDispatch} from 'react-redux';
-import {useLazyQuery} from "@apollo/client";
-import {GET_LOGGED_USER} from "../apollo/queries/auth";
 import {setLoggedUser} from '../state/auth/authSlice';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 // hook to get current logged user (based on http only cookies) and put info about him to auth reducer
 const useLoggedUser = () => {
     const dispatch = useDispatch();
-    const [getLoggedUser, {data}] = useLazyQuery(GET_LOGGED_USER, {
-        fetchPolicy: "network-only"
-    });
+    // const [_loggedUser, _setLoggedUser] = useState();
 
-    useEffect(() => {
-        if (data) {
-            dispatch(setLoggedUser(data.loggedUser));
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     if (_loggedUser) {
+    //         dispatch(setLoggedUser(_loggedUser));
+    //     }
+    // }, [_loggedUser]);
 
-    const loggedUser = () => {
-        getLoggedUser();
+    const loggedUser = async () => {
+        const {data} = await axios.get('/api/loggedUser');
+        if (data) dispatch(setLoggedUser(data.loggedUser));
     };
 
     return loggedUser;

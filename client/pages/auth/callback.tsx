@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme: ITheme) => ({
 }));
 
 const AuthCallback = () => {
-    const loggedUser = useLoggedUser();
+    // const loggedUser = useLoggedUser();
     const router = useRouter();
     const classes = useStyles();
 
     useEffect(() => {
-        loggedUser();
+        // loggedUser();
         router.push({pathname: '/'});
     }, []);
 

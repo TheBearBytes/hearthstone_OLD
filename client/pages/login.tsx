@@ -8,14 +8,14 @@ import OAuthLoginButtons from "../components/OAuthLoginButtons";
 
 const Login = () => {
     const [login, {loading}] = useMutation(LOGIN);
-    const loggedUser = useLoggedUser();
+    // const loggedUser = useLoggedUser();
     const router = useRouter();
 
     const onLogin = async (variables) => {
         const {data} = await login({variables});
 
         if (data.login) {
-            loggedUser();
+            // loggedUser();
             router.push({pathname: '/'});
         }
     }

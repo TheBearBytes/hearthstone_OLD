@@ -5,16 +5,6 @@ import OAuthUser from '../../db/models/oauthUser';
 import errorCodes from '../../const/errorCodes';
 import {IJwtUser} from "../../types";
 
-export const userQueries = {
-    loggedUser: async (root, {}, ctx) => {
-        const user = await User.findById(ctx.req.userId);
-
-        if (user) return user;
-
-        return OAuthUser.findById(ctx.req.userId);
-    },
-}
-
 export const userMutations = {
     login: async (root, {input}, ctx) => {
         try {

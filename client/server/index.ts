@@ -8,6 +8,7 @@ import {connectToMongo} from './db/connect';
 import {initPassportStrategies} from "./middlewares/passport";
 import authMiddleware from "./middlewares/authMiddleware";
 import authRoutes from "./routes/authRoutes";
+import apiRoutes from "./routes/apiRoutes";
 
 const port = parseInt(process.env.PORT, 10) || 3001;
 const dev = process.env.NODE_ENV !== 'production';
@@ -21,9 +22,10 @@ app.prepare().then(() => {
 
     initPassportStrategies();
 
-    authRoutes(server);
-
     authMiddleware(server);
+
+    authRoutes(server);
+    apiRoutes(server);
 
     apolloServer.applyMiddleware({app: server})
 
