@@ -1,4 +1,3 @@
-import useLoggedUser from "../../hooks/useLoggedUser";
 import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import {CircularProgress, makeStyles} from "@material-ui/core";
@@ -13,7 +12,6 @@ const useStyles = makeStyles((theme: ITheme) => ({
 }));
 
 const AuthCallback = () => {
-    // const loggedUser = useLoggedUser();
     const router = useRouter();
     const classes = useStyles();
 

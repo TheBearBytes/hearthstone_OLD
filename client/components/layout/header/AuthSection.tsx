@@ -16,7 +16,6 @@ const AuthSection = () => {
         router.push({pathname: '/'});
     }
 
-    console.log('user logged', user)
     if (user) {
         return (
             <>

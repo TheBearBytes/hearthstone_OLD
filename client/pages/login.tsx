@@ -2,7 +2,6 @@ import React from "react";
 import {useMutation} from "@apollo/client";
 import {LOGIN} from "../apollo/queries/auth";
 import LoginForm from "../components/forms/login/LoginForm";
-import useLoggedUser from "../hooks/useLoggedUser";
 import {useRouter} from "next/router";
 import OAuthLoginButtons from "../components/OAuthLoginButtons";
 
@@ -15,7 +14,6 @@ const Login = () => {
         const {data} = await login({variables});
 
         if (data.login) {
-            // loggedUser();
             router.push({pathname: '/'});
         }
     }
