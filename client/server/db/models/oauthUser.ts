@@ -2,17 +2,22 @@ import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+// todo - create separate models for google/fb user (?)
 const oauthUserSchema = new Schema({
 	googleId: {
 		type: String,
-		required: true,
+		// required: true,
+	},
+	facebookId: {
+		type: String,
+		// required: true,
 	},
 	avatar: {
 		type: String,
 	},
 	email: {
 		type: String,
-		required: true,
+		// required: true,
 	},
 	username: {
 		type: String,

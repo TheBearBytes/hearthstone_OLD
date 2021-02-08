@@ -2,6 +2,7 @@ import React from "react";
 import {Button, makeStyles} from "@material-ui/core";
 import {ITheme} from "../theme/theme";
 import {useRouter} from "next/router";
+import OAuthUrls from "../consts/OAuthUrls";
 
 const useStyles = makeStyles((theme: ITheme) => ({
     root: {
@@ -29,7 +30,7 @@ const OAuthLoginButtons = () => {
             <Button
                 fullWidth
                 variant="outlined"
-                onClick={() => router.push({pathname: '/auth/google'})}
+                onClick={() => router.push({pathname: OAuthUrls.GOOGLE_LOGIN})}
                 className={classes.buttonGoogle}
             >
                 Login with Google
@@ -37,7 +38,7 @@ const OAuthLoginButtons = () => {
             <Button
                 fullWidth
                 variant="outlined"
-                onClick={() => router.push({pathname: '/auth/google'})}
+                onClick={() => router.push({pathname: OAuthUrls.FACEBOOK_LOGIN})}
                 className={classes.buttonFacebook}
             >
                 Login with Facebook

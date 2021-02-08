@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import {CircularProgress, makeStyles} from "@material-ui/core";
 import {ITheme} from "../../theme/theme";
+import useToast from "../../hooks/useToast";
 
 const useStyles = makeStyles((theme: ITheme) => ({
     root: {
@@ -14,10 +15,14 @@ const useStyles = makeStyles((theme: ITheme) => ({
 const AuthCallback = () => {
     const router = useRouter();
     const classes = useStyles();
+    const showToast = useToast();
 
     useEffect(() => {
-        // loggedUser();
-        router.push({pathname: '/'});
+        showToast({
+            severity: 'success',
+            message: 'LOGIN_SUCCESS'
+        });
+        router.push({pathname: '/about'});
     }, []);
 
     return <div className={classes.root}>

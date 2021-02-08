@@ -2,6 +2,7 @@ import React from "react";
 import {AppBar, Box, ButtonGroup, Container, Toolbar} from "@material-ui/core";
 import MenuLink from "./MenuLink";
 import AuthSection from "./AuthSection";
+import Urls from "../../../consts/Urls";
 
 const Header = () => {
 	// todo: add some route animation
@@ -13,7 +14,7 @@ const Header = () => {
 					<Container maxWidth="lg">
 						<Toolbar disableGutters>
 							<ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-								<MenuLink href='/' label='Home' />
+								<MenuLink href={Urls.HOME.url} label={Urls.HOME.label} />
 								<MenuLink href='/blog' label='Blog' />
 								<MenuLink href='/decks' label='Decks' />
 								<MenuLink href='/cards' label='Cards' />

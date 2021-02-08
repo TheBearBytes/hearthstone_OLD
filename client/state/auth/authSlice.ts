@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export interface IAuthState {
-    userName: String,
+    username: String,
     email: String,
     role: String[],
 }
