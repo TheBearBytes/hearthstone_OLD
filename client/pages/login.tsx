@@ -1,45 +1,46 @@
-import React from "react";
+import React, {useState} from "react";
 import LoginForm from "../components/forms/login/LoginForm";
 import {useRouter} from "next/router";
 import OAuthLoginButtons from "../components/OAuthLoginButtons";
-import axios from "axios";
 import useToast from "../hooks/useToast";
+import AuthService from "../services/AuthService";
 
 const Login = () => {
     const router = useRouter();
     const showToast = useToast();
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const onLogin = async (variables) => {
-        // todo: axios client
+        setLoading(true);
 
         try {
-            await axios.post('/api/login', variables);
-            // todo: toast with <Redirect />
+            await AuthService.login(variables);
             showToast({
                 severity: 'success',
                 message: 'LOGIN_SUCCESS'
             });
-            await router.push({pathname: '/'});
+            await router.push({pathname: '/about'});
         } catch (e) {
             // todo: test errors
             showToast({
                 severity: 'error',
                 message: e.message
             });
+            setLoading(false);
         }
     }
 
-    // todo: loading
     return (
         <>
             <h1>Login</h1>
             <LoginForm
-                loading={false}
+                loading={loading}
                 onSubmit={onLogin}
             />
             <OAuthLoginButtons/>
         </>
     )
-}
+};
 
 export default Login;

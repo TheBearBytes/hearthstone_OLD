@@ -1,16 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import RegisterForm from "../components/forms/register/RegisterForm";
 import useToast from "../hooks/useToast";
-import axios from "axios";
 import {useRouter} from "next/router";
+import AuthService from "../services/AuthService";
 
 const Register = () => {
     const showToast = useToast();
     const router = useRouter();
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const onRegister = async (variables) => {
+        setLoading(true);
+
         try {
-            await axios.post("/api/register", variables);
+            await AuthService.register(variables);
             showToast({
                 severity: 'success',
                 message: 'REGISTRATION_SUCCESS'
@@ -21,15 +25,15 @@ const Register = () => {
                 severity: 'error',
                 message: e.message
             });
+            setLoading(false);
         }
     }
 
-    // todo: loading
     return (
         <>
             <h1>Register</h1>
             <RegisterForm
-                loading={false}
+                loading={loading}
                 onSubmit={onRegister}
             />
         </>
