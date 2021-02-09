@@ -23,7 +23,12 @@ const withAuthWall = (WrappedComponent) => (requiredUserRole: RequiredUserRolePr
         return <CircularPageLoader />;
     }
 
-    if (!user && requiredUserRole === null || requiredUserRole === user.role) {
+    // admin has access everywhere
+    if (user && user.role === userRole.ADMIN) {
+        return <WrappedComponent {...props} />;
+    }
+
+    if (!user && requiredUserRole === null || (user && user.role === requiredUserRole)) {
         return <WrappedComponent {...props} />;
     }
 

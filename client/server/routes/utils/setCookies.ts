@@ -6,8 +6,8 @@ const setCookies = (user, res) => {
     // @ts-ignore
     const jwtUser: IJwtUser = {userId: user._id, userRole: user.role};
 
-    const jwtOptions = {expiresIn: '1m'};
-    const cookieExpiresDate = new Date(Date.now() + (1000 * 60));
+    const jwtOptions = {expiresIn: '15m'};
+    const cookieExpiresDate = new Date(Date.now() + (1000 * 60 * 15));
 
     // access-token cookie is http-only and keeps user information
     // login-token is not http-only - user can destroy this cookie to logout

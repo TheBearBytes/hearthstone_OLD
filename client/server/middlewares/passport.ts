@@ -39,7 +39,7 @@ export const initPassportStrategies = () => {
             callbackURL: OAuthUrls.GOOGLE_CALLBACK,
         },
         function(accessToken, refreshToken, profile, callback) {
-            OAuthUser.findOne({ provider: userProvider.GOOGLE, googleId: profile.id }, async function (error, user) {
+            OAuthUser.findOne({ provider: userProvider.GOOGLE, providerId: profile.id }, async function (error, user) {
                 if (error) return callback(error);
 
                 if (!user) {
@@ -66,7 +66,7 @@ export const initPassportStrategies = () => {
             profileFields: ['id', 'emails', 'name'],
         },
         function(accessToken, refreshToken, profile, callback) {
-            OAuthUser.findOne({ provider: userProvider.FACEBOOK, facebookId: profile.id }, async function (error, user) {
+            OAuthUser.findOne({ provider: userProvider.FACEBOOK, providerId: profile.id }, async function (error, user) {
                 if (error) return callback(error);
 
                 if (!user) {

@@ -15,6 +15,7 @@ const apiRoutes = (server) => {
         }
     );
 
+    // todo: check if user is not logged in
     server.post(
         "/api/login",
         async (req, res) => {
@@ -28,6 +29,7 @@ const apiRoutes = (server) => {
         }
     );
 
+    // todo: check if user is not logged in
     server.post("/api/register",
         async (req, res) => {
         const {password, passwordConfirmation} = req.body;
