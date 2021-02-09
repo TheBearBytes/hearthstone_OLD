@@ -1,5 +1,5 @@
 import passport from "passport";
-import errorCodes from "../const/errorCodes";
+import ErrorCodes from "../../consts/ErrorCodes";
 
 const authController = {
     authenticateUser: (options) => {
@@ -8,7 +8,7 @@ const authController = {
                 if (err) return reject(new Error(err));
                 if (user) return resolve(user);
 
-                return reject(new Error(errorCodes.LOGIN_INCORRECT_CREDENTIALS))
+                return reject(new Error(ErrorCodes.LOGIN_INCORRECT_CREDENTIALS))
             })(options);
         });
     }

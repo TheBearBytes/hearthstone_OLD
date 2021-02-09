@@ -5,7 +5,7 @@ import facebookStrategy from 'passport-facebook';
 import User from '../db/models/user';
 import OAuthUser from '../db/models/oauthUser';
 import bcrypt from "bcryptjs";
-import errorCodes from "../const/errorCodes";
+import ErrorCodes from "../../consts/ErrorCodes";
 import OAuthUrls from "../../consts/OAuthUrls";
 import {userProvider} from "../../consts/User";
 
@@ -25,7 +25,7 @@ export const initPassportStrategies = () => {
 
                 bcrypt.compare(password, user.password, function (error, isSuccess) {
                     if (error) return callback(error);
-                    if (!isSuccess) return callback(errorCodes.LOGIN_INCORRECT_CREDENTIALS);
+                    if (!isSuccess) return callback(ErrorCodes.LOGIN_INCORRECT_CREDENTIALS);
 
                     return callback(null, user);
                 })

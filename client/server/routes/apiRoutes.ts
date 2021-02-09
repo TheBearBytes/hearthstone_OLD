@@ -1,7 +1,7 @@
 import User from "../db/models/user";
 import OAuthUser from "../db/models/oauthUser";
 import authController from "../controllers/authController";
-import errorCodes from "../const/errorCodes";
+import ErrorCodes from "../../consts/ErrorCodes";
 import setCookies from "./utils/setCookies";
 
 const apiRoutes = (server) => {
@@ -36,11 +36,11 @@ const apiRoutes = (server) => {
                     await User.create(req.body);
                     res.send({register: true});
                 } catch (e) {
-                    if (e.code === 11000) return res.status(400).json({ error: errorCodes.REGISTER_EMAIL_EXISTS_ERROR });
-                    return res.status(400).json({ error: errorCodes.VALIDATION_ERROR });
+                    if (e.code === 11000) return res.status(400).json({ error: ErrorCodes.REGISTER_EMAIL_EXISTS_ERROR });
+                    return res.status(400).json({ error: ErrorCodes.VALIDATION_ERROR });
                 }
             } else {
-                return res.status(400).json({ error: errorCodes.LOGIN_INCORRECT_PASSWORD_CONFIRMATION });
+                return res.status(400).json({ error: ErrorCodes.LOGIN_INCORRECT_PASSWORD_CONFIRMATION });
             }
         }
     );
