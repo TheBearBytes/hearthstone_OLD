@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export interface IAuthState {
-    username: String,
-    email: String,
-    role: String[],
+    username: string,
+    email: string,
+    role: string,
+    avatar: string,
 }
 
 const initialState: IAuthState | null = null;
