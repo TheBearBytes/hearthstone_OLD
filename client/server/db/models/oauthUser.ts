@@ -1,16 +1,17 @@
 import * as mongoose from 'mongoose';
+import {userProvider, userRole} from "../../../consts/User";
 
 const Schema = mongoose.Schema;
 
-// todo - create separate models for google/fb user (?)
 const oauthUserSchema = new Schema({
-	googleId: {
+	providerId: {
 		type: String,
-		// required: true,
+		required: true,
 	},
-	facebookId: {
+	provider: {
+		enum: [userProvider.GOOGLE, userProvider.FACEBOOK],
 		type: String,
-		// required: true,
+		required: true,
 	},
 	avatar: {
 		type: String,
@@ -23,9 +24,9 @@ const oauthUserSchema = new Schema({
 		type: String,
 	},
 	role: {
-		enum: ['USER', 'ADMIN'],
+		enum: [userRole.ADMIN, userRole.USER],
 		type: String,
-		default: 'USER',
+		default: userRole.USER,
 	},
 }, {
 	timestamps: true,

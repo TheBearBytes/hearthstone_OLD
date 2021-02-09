@@ -7,6 +7,7 @@ import OAuthUser from '../db/models/oauthUser';
 import bcrypt from "bcryptjs";
 import errorCodes from "../const/errorCodes";
 import OAuthUrls from "../../consts/OAuthUrls";
+import {userProvider} from "../../consts/User";
 
 const CustomStrategy = passportCustom.Strategy;
 const GoogleStrategy = googleStrategy.Strategy;
@@ -38,16 +39,16 @@ export const initPassportStrategies = () => {
             callbackURL: OAuthUrls.GOOGLE_CALLBACK,
         },
         function(accessToken, refreshToken, profile, callback) {
-            OAuthUser.findOne({ googleId: profile.id }, async function (error, user) {
+            OAuthUser.findOne({ provider: userProvider.GOOGLE, googleId: profile.id }, async function (error, user) {
                 if (error) return callback(error);
 
                 if (!user) {
                     const createdUser = await OAuthUser.create({
-                        googleId: profile.id,
+                        providerId: profile.id,
                         avatar: profile.photos[0] && profile.photos[0].value,
                         email: profile.emails[0] && profile.emails[0].value,
                         username: profile.displayName,
-                        role: 'USER',
+                        provider: userProvider.GOOGLE,
                     });
 
                     return callback(null, createdUser);
@@ -62,18 +63,19 @@ export const initPassportStrategies = () => {
             clientID: process.env.FACEBOOK_CLIENT_ID,
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
             callbackURL: OAuthUrls.FACEBOOK_CALLBACK,
+            profileFields: ['id', 'emails', 'name'],
         },
         function(accessToken, refreshToken, profile, callback) {
-            OAuthUser.findOne({ facebookId: profile.id }, async function (error, user) {
+            OAuthUser.findOne({ provider: userProvider.FACEBOOK, facebookId: profile.id }, async function (error, user) {
                 if (error) return callback(error);
 
                 if (!user) {
                     const createdUser = await OAuthUser.create({
-                        facebookId: profile.id,
-                        // avatar: profile.photos[0] && profile.photos[0].value,
-                        // email: profile.emails[0] && profile.emails[0].value,
+                        providerId: profile.id,
+                        // avatar: `https://graph.facebook.com/${profile.id}/picture?width=200&height=200&access_token=${accessToken}`,
+                        email: profile.emails[0] && profile.emails[0].value,
                         username: profile.displayName,
-                        role: 'USER',
+                        provider: userProvider.FACEBOOK,
                     });
 
                     return callback(null, createdUser);

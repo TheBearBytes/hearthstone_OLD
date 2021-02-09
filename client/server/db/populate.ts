@@ -7,6 +7,7 @@ import Card from './models/card';
 import Deck from './models/deck';
 import User from './models/user';
 import {connectToMongo} from "./connect";
+import {userRole} from "../../consts/User";
 
 const populate = async () => {
 	try {
@@ -23,7 +24,7 @@ const populate = async () => {
 		await User.create({
 			email: process.env.USER_ADMIN_EMAIL,
 			password: process.env.USER_ADMIN_PASSWORD,
-			role: 'ADMIN',
+			role: userRole.ADMIN,
 		});
 
 		console.log('Completed!');
