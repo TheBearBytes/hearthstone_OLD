@@ -11,6 +11,7 @@ const Layout = ({children}) => {
 	const loggedUser = useLoggedUser();
 
 	useEffect(() => {
+		// todo: remove in the future (find better way)
 		loggedUser();
 	}, [router.pathname]);
 

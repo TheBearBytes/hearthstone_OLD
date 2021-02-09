@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import OAuthLoginButtons from "../components/OAuthLoginButtons";
 import useToast from "../hooks/useToast";
 import AuthService from "../services/AuthService";
+import withAuthWall from "../hoc/withAuthWall";
 
 const Login = () => {
     const router = useRouter();
@@ -43,4 +44,4 @@ const Login = () => {
     )
 };
 
-export default Login;
+export default withAuthWall(Login)(null);

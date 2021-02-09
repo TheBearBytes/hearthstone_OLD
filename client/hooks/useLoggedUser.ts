@@ -9,6 +9,7 @@ const useLoggedUser = () => {
     const loggedUser = async () => {
         const {data} = await AuthService.loggedUser();
         if (data) dispatch(setLoggedUser(data.loggedUser));
+        return data;
     };
 
     return loggedUser;

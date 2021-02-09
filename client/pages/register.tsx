@@ -3,6 +3,7 @@ import RegisterForm from "../components/forms/register/RegisterForm";
 import useToast from "../hooks/useToast";
 import {useRouter} from "next/router";
 import AuthService from "../services/AuthService";
+import withAuthWall from "../hoc/withAuthWall";
 
 const Register = () => {
     const showToast = useToast();
@@ -40,4 +41,4 @@ const Register = () => {
     )
 };
 
-export default Register;
+export default withAuthWall(Register)(null);

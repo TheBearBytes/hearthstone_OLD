@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
 import {useRouter} from "next/router";
-import {CircularProgress, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import {ITheme} from "../../theme/theme";
 import useToast from "../../hooks/useToast";
+import CircularPageLoader from "../../components/shared/CircularPageLoader";
 
 const useStyles = makeStyles((theme: ITheme) => ({
     root: {
@@ -14,7 +15,6 @@ const useStyles = makeStyles((theme: ITheme) => ({
 
 const AuthCallback = () => {
     const router = useRouter();
-    const classes = useStyles();
     const showToast = useToast();
 
     useEffect(() => {
@@ -25,9 +25,7 @@ const AuthCallback = () => {
         router.push({pathname: '/about'});
     }, []);
 
-    return <div className={classes.root}>
-        <CircularProgress />
-    </div>;
+    return <CircularPageLoader />;
 }
 
 export default AuthCallback;
