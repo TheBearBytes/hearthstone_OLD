@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import NewDeckForm from "../../components/forms/newDeck/NewDeckForm";
+import DeckForm from "../../components/forms/deck/DeckForm";
 import {useCreateDeck} from "../../apollo/actions";
 import {useState} from "react";
 import useToast from "../../hooks/useToast";
@@ -38,7 +38,7 @@ export default function NewDeck() {
 			</Head>
 			<section>
 				<h2>Create new deck</h2>
-				<NewDeckForm onSubmit={handleCreateDeck} loading={loading} />
+				<DeckForm onSubmit={handleCreateDeck} loading={loading} />
 			</section>
 		</>
 	)

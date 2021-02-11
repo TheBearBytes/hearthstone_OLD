@@ -3,40 +3,75 @@ import {useQuery} from '@apollo/client';
 import {GET_DECK} from '../../apollo/queries';
 import {initializeApollo} from '../../lib/apollo';
 import DeckType from '../../types/deck';
+import DeckPreview from "../../components/decks/DeckPreview";
+import React, {useState} from "react";
+import {Button} from "@material-ui/core";
+import {useUpdateDeck} from "../../apollo/actions";
+import DeckForm from "../../components/forms/deck/DeckForm";
+import useToast from "../../hooks/useToast";
 
 export default function Deck({id}) {
-	const {data} = useQuery(GET_DECK, {variables: {id}});
+    const {data} = useQuery(GET_DECK, {variables: {id}});
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [updateDeck] = useUpdateDeck();
+    const showToast = useToast();
 
-	const deck: DeckType = data && data.deck || {};
+    const deck: DeckType = data && data.deck || {};
 
-	return (
-		<>
-			<Head>
-				<title>Decks | {deck.title}</title>
-			</Head>
-			<section>
-				<h1>{deck.title}</h1>
-				<p>{deck.description}</p>
-				<ul>
-					{deck.cardsId.map(c => (<li key={c}>{c}</li>))}
-				</ul>
-			</section>
-		</>
-	)
+    const handleUpdateDeck = async (val: DeckType) => {
+        try {
+            const {data} = await updateDeck({variables: {id: deck._id, ...val}});
+            showToast({
+                severity: "success",
+                message: `DECK_UPDATED_SUCCESSFULLY ${data.updateDeck.title}`,
+            })
+        } catch (e) {
+            showToast({
+                severity: "error",
+                message: e.message,
+            })
+        }
+
+        setEditMode(false);
+    }
+
+    const onEditMode = () => {
+        setEditMode(prevState => !prevState)
+    }
+
+    return (
+        <>
+            <Head>
+                <title>Decks | {deck.title}</title>
+            </Head>
+            <section>
+                <h1>{deck.title}</h1>
+                {editMode
+                    ? <DeckForm
+                        onSubmit={handleUpdateDeck}
+                        loading={false}
+                        initialValues={deck}
+                    />
+                    : <DeckPreview deck={deck}/>
+                }
+                <Button color="primary" onClick={onEditMode}>{editMode ? 'Cancel' : 'Edit'}</Button>
+            </section>
+        </>
+    )
 }
 
 export async function getServerSideProps({params: {id}}) {
-	const apolloClient = initializeApollo()
+    const apolloClient = initializeApollo()
 
-	await apolloClient.query({
-		query: GET_DECK,
-		variables: {id}
-	})
+    await apolloClient.query({
+        query: GET_DECK,
+        variables: {id}
+    })
 
-	return {
-		props: {
-			initialApolloState: apolloClient.cache.extract(),
-			id
-		}
-	}
+    return {
+        props: {
+            initialApolloState: apolloClient.cache.extract(),
+            id
+        }
+    }
 }

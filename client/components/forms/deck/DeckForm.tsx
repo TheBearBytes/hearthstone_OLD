@@ -2,8 +2,9 @@ import React from 'react';
 import {useFormik} from 'formik';
 import TextField from '@material-ui/core/TextField';
 import {Button} from "@material-ui/core";
-import newDeckFormValidationSchema from "./newDeckFormValidationSchema";
+import deckFormValidationSchema from "./deckFormValidationSchema";
 import useStyles from '../style';
+import DeckType from "../../../types/deck";
 
 const tmpRandomCardsSet = [
     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
@@ -18,17 +19,25 @@ const tmpRandomCardsSet = [
     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
 ];
 
-const NewDeckForm = ({onSubmit, loading}) => {
-    const classes = useStyles();
+// todo: props (inherit), onSubmit any
+type DeckFormProps = {
+    onSubmit: any,
+    loading: boolean,
+    initialValues?: DeckType,
+}
 
+const DeckForm = ({onSubmit, loading, initialValues}: DeckFormProps) => {
+    const initVal = initialValues ? initialValues : {
+        title: '',
+        description: '',
+        cardsId: tmpRandomCardsSet,
+    };
+
+    const classes = useStyles();
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues: {
-            title: '',
-            description: '',
-            cardsId: tmpRandomCardsSet,
-        },
-        validationSchema: newDeckFormValidationSchema,
+        initialValues: initVal,
+        validationSchema: deckFormValidationSchema,
         onSubmit,
     });
 
@@ -67,10 +76,10 @@ const NewDeckForm = ({onSubmit, loading}) => {
                 type="submit"
                 disabled={loading}
             >
-                Create deck
+                {initialValues ? 'Edit deck' : 'Create deck'}
             </Button>
         </form>
     );
 };
 
-export default NewDeckForm;
+export default DeckForm;

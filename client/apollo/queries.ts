@@ -39,19 +39,20 @@ export const CREATE_DECK = gql`
 `;
 
 export const UPDATE_DECK = gql`
-    mutation UpdateDeck($id: ID) {
+    mutation UpdateDeck(
+        $id: ID
+        $title: String!
+        $description: String!
+        $cardsId: [String]
+      )  {
         updateDeck(id: $id, input: {
-            title: "UPDATE deck"
-            cardsId: [
-                "AT_001",
-                "AT_002",
-                "AT_003",
-                "AT_004",
-                "AT_005",
-            ]
+            title: $title
+            description: $description
+            cardsId: $cardsId
         }) {
             _id,
             title,
+            description,
             cardsId,
         }
     }`;
