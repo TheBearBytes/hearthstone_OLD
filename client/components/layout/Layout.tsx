@@ -3,17 +3,14 @@ import Footer from "./Footer";
 import Header from "./header/Header";
 import {Box, Container} from "@material-ui/core";
 import Toast from "./Toast";
-import {useRouter} from "next/router";
 import useLoggedUser from "../../hooks/useLoggedUser";
 
 const Layout = ({children}) => {
-	const router = useRouter()
 	const loggedUser = useLoggedUser();
 
 	useEffect(() => {
-		// todo: remove in the future (find better way)
 		loggedUser();
-	}, [router.pathname]);
+	}, []);
 
 	return (
 		<Box

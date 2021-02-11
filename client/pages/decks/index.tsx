@@ -5,12 +5,11 @@ import Link from 'next/link';
 import ButtonError from '../../components/shared/ButtonError';
 import {NetworkStatus} from '@apollo/client';
 import {initializeApollo} from '../../lib/apollo';
-import {useCreateDeck, useDeleteDeck, useGetDecks, useUpdateDeck} from '../../apollo/actions';
+import {useDeleteDeck, useGetDecks, useUpdateDeck} from '../../apollo/actions';
 import {GET_DECKS} from '../../apollo/queries';
 
 export default function Decks() {
 	const {data, networkStatus} = useGetDecks();
-	const [createDeck] = useCreateDeck();
 	const [deleteDeck] = useDeleteDeck();
 	const [updateDeck] = useUpdateDeck();
 
@@ -19,11 +18,6 @@ export default function Decks() {
 	useEffect(() => {
 		console.log('networkStatus', networkStatus, NetworkStatus[networkStatus]);
 	}, [networkStatus]);
-
-
-	const handleCreateDeck = async () => {
-		await createDeck();
-	}
 
 	const handleUpdateDeck = async (id: string) => {
 		await updateDeck({variables: {id}});
@@ -40,7 +34,7 @@ export default function Decks() {
 			</Head>
 			<section>
 				<h2>Decks</h2>
-				<Button variant="contained" color="primary" onClick={handleCreateDeck}>Create deck</Button>
+				<Link href={'/decks/new'}><Button variant="contained" color="primary">Create deck</Button></Link>
 				<Box display="flex" flexWrap="wrap">
 					{decks.map(deck => (
 						<Box key={deck._id} m={1}>

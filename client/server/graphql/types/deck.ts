@@ -1,5 +1,6 @@
 const deckFields = `
-	title: String,
+	title: String!,
+	description: String!,
 	cardsId: [String]
 `;
 

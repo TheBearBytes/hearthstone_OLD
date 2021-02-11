@@ -5,6 +5,7 @@ export const GET_DECK = gql`
         deck (id: $id) {
             _id,
             title,
+            description,
             cardsId,
         }
     }
@@ -21,20 +22,18 @@ export const GET_DECKS = gql`
 `
 
 export const CREATE_DECK = gql`
-    mutation CreateDeck {
+    mutation CreateDeck(
+        $title: String!
+        $description: String!
+        $cardsId: [String]
+      ) {
         createDeck(input: {
-            title: "New title test",
-            cardsId: [
-                "AT_001",
-                "AT_002",
-                "AT_003",
-                "AT_004",
-                "AT_005",
-            ]
+          title: $title
+          description: $description
+          cardsId: $cardsId
         }) {
             _id,
             title,
-            cardsId,
         }
     }
 `;

@@ -16,6 +16,7 @@ export default function Deck({id}) {
 			</Head>
 			<section>
 				<h1>{deck.title}</h1>
+				<p>{deck.description}</p>
 				<ul>
 					{deck.cardsId.map(c => (<li key={c}>{c}</li>))}
 				</ul>
