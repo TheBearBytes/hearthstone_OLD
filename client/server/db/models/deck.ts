@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-
 const Schema = mongoose.Schema;
 
 const deckSchema = new Schema({
@@ -11,7 +10,10 @@ const deckSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	cardsId: {type: [String]},
+	cards: [{
+		type : Schema.Types.ObjectId,
+		ref: 'Card'
+	}],
 }, {
 	timestamps: true,
 });

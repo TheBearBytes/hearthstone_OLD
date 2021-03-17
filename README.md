@@ -46,3 +46,4 @@ To populate database run `docker exec -it hs-client yarn populateDb` on running 
 * [Simple MERN docker-compose - YT](https://www.youtube.com/watch?v=0B2raYYH2fE&ab_channel=DevOpsDirective)
 * [NodeJS Microservices - YT](https://www.youtube.com/watch?v=EsCfPxjmnjo&ab_channel=FredrikChristenson)
 * [JWT](https://www.youtube.com/watch?v=RUZB8tpyDbQ&ab_channel=BenAwad)
+* [MongoDB lookup](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/)

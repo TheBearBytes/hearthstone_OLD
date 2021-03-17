@@ -2,7 +2,7 @@ type DeckType = {
 	_id?: string,
 	title: string,
 	description: string,
-	cardsId: string[],
+	cards: any[],
 }
 
 export default DeckType;

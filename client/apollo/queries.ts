@@ -6,7 +6,16 @@ export const GET_DECK = gql`
             _id,
             title,
             description,
-            cardsId,
+            cards {
+                _id,
+                name,
+                attack,
+                cost,
+                cardClass,
+                rarity,
+                set,
+                type,
+            }
         }
     }
 `
@@ -16,7 +25,6 @@ export const GET_DECKS = gql`
         decks {
             _id,
             title,
-            cardsId,
         }
     }
 `
@@ -25,12 +33,12 @@ export const CREATE_DECK = gql`
     mutation CreateDeck(
         $title: String!
         $description: String!
-        $cardsId: [String]
+        $cards: [String]
       ) {
         createDeck(input: {
           title: $title
           description: $description
-          cardsId: $cardsId
+          cards: $cards
         }) {
             _id,
             title,
@@ -43,17 +51,17 @@ export const UPDATE_DECK = gql`
         $id: ID
         $title: String!
         $description: String!
-        $cardsId: [String]
+        $cards: [String]
       )  {
         updateDeck(id: $id, input: {
             title: $title
             description: $description
-            cardsId: $cardsId
+            cards: $cards
         }) {
             _id,
             title,
             description,
-            cardsId,
+            cards,
         }
     }`;
 

@@ -10,7 +10,7 @@ const DeckPreview = ({deck}: DeckPreviewProps) => {
         <>
             <p>{deck.description}</p>
             <ul>
-                {deck.cardsId.map(c => (<li key={c}>{c}</li>))}
+                {deck.cards.map(c => (<li key={c.name}>{c.name}</li>))}
             </ul>
         </>
     );

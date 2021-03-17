@@ -6,17 +6,23 @@ import deckFormValidationSchema from "./deckFormValidationSchema";
 import useStyles from '../style';
 import DeckType from "../../../types/deck";
 
+// const tmpRandomCardsSet = [
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+// ];
+
 const tmpRandomCardsSet = [
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-    `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
+    '6050662cd3dd14006413dca6',
+    '6050662cd3dd14006413dcb5',
+    '6050662cd3dd14006413dcca',
 ];
 
 // todo: props (inherit), onSubmit any
@@ -30,7 +36,7 @@ const DeckForm = ({onSubmit, loading, initialValues}: DeckFormProps) => {
     const initVal = initialValues ? initialValues : {
         title: '',
         description: '',
-        cardsId: tmpRandomCardsSet,
+        cards: tmpRandomCardsSet,
     };
 
     const classes = useStyles();
