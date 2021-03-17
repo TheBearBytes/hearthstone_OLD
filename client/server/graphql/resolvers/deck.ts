@@ -25,10 +25,6 @@ export const deckQueries = {
 
 export const deckMutations = {
     createDeck: async (root, {input}) => {
-        debugger;
-
-        console.log('woz in', input.cards)
-
         const deck = await Deck.create(input);
         return deck;
     },

@@ -61,7 +61,9 @@ export const UPDATE_DECK = gql`
             _id,
             title,
             description,
-            cards,
+            cards {
+                _id
+            }
         }
     }`;
 

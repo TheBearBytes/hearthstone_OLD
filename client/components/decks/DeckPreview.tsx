@@ -1,8 +1,8 @@
 import React from 'react';
-import DeckType from "../../types/deck";
+import {DeckDto} from "../../types/deck";
 
 type DeckPreviewProps = {
-    deck: DeckType
+    deck: DeckDto
 }
 
 const DeckPreview = ({deck}: DeckPreviewProps) => {

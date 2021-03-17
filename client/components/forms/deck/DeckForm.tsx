@@ -4,40 +4,38 @@ import TextField from '@material-ui/core/TextField';
 import {Button} from "@material-ui/core";
 import deckFormValidationSchema from "./deckFormValidationSchema";
 import useStyles from '../style';
-import DeckType from "../../../types/deck";
-
-// const tmpRandomCardsSet = [
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-//     `AT_0${Math.floor(Math.random() * (99 - 10 + 1)) + 10}`,
-// ];
+import {DeckDto, DeckInputDto} from "../../../types/deck";
 
 const tmpRandomCardsSet = [
-    '6050662cd3dd14006413dca6',
-    '6050662cd3dd14006413dcb5',
-    '6050662cd3dd14006413dcca',
+    '605071e1754c340063b0228e',
 ];
 
 // todo: props (inherit), onSubmit any
 type DeckFormProps = {
     onSubmit: any,
     loading: boolean,
-    initialValues?: DeckType,
+    initialValues?: DeckDto,
 }
 
 const DeckForm = ({onSubmit, loading, initialValues}: DeckFormProps) => {
-    const initVal = initialValues ? initialValues : {
-        title: '',
-        description: '',
-        cards: tmpRandomCardsSet,
-    };
+    console.log('init vals', initialValues);
+
+    const getInitialValues = (initVal: DeckDto): DeckInputDto => {
+        if (initVal) {
+            return {
+                ...initVal,
+                cards: initVal.cards.map(c => c._id)
+            }
+        }
+
+        return {
+            title: '',
+            description: '',
+            cards: tmpRandomCardsSet,
+        };
+    }
+
+    const initVal = getInitialValues(initialValues);
 
     const classes = useStyles();
     const formik = useFormik({

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import {useQuery} from '@apollo/client';
 import {GET_DECK} from '../../apollo/queries';
 import {initializeApollo} from '../../lib/apollo';
-import DeckType from '../../types/deck';
+import {DeckDto} from '../../types/deck';
 import DeckPreview from "../../components/decks/DeckPreview";
 import React, {useState} from "react";
 import {Button} from "@material-ui/core";
@@ -16,9 +16,9 @@ export default function Deck({id}) {
     const [updateDeck] = useUpdateDeck();
     const showToast = useToast();
 
-    const deck: DeckType = data && data.deck || {};
+    const deck: DeckDto = data && data.deck || {};
 
-    const handleUpdateDeck = async (val: DeckType) => {
+    const handleUpdateDeck = async (val: DeckDto) => {
         try {
             const {data} = await updateDeck({variables: {id: deck._id, ...val}});
             showToast({
