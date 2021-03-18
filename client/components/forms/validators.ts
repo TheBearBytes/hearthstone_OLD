@@ -13,4 +13,4 @@ export const passwordValidator = yup
 
 export const stringRequiredValidator = yup
     .string()
-    .required('Email is required');
+    .required('Field is required');
